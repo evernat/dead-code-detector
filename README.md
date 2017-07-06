@@ -1,4 +1,4 @@
-﻿Dead Code Detector (for Java applications)
+Dead Code Detector (for Java applications)
 ==========================================
 
 If you are a developer or a tech lead, Dead Code Detector (DCD) simply finds never used code in your Java/JEE applications.
