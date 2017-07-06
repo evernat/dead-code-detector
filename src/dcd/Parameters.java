@@ -31,13 +31,13 @@ import java.util.prefs.Preferences;
 import java.util.regex.Pattern;
 
 /**
- * Objet portant tous les paramètres définis par l'IHM ou par un fichier de configuration
- * (ou bien dans les préférences utilisateur pour les valeurs par défaut sans fichier de configuration).
+ * Objet portant tous les paramÃ¨tres dÃ©finis par l'IHM ou par un fichier de configuration
+ * (ou bien dans les prÃ©fÃ©rences utilisateur pour les valeurs par dÃ©faut sans fichier de configuration).
  * @author evernat
  */
 public class Parameters {
 	/**
-	 * Clé du paramètre "directories".
+	 * ClÃ© du paramÃ¨tre "directories".
 	 */
 	public static final String DIRECTORIES_KEY = "directories";
 	private static final String EXCLUDED_CLASSES_KEY = "excludedClasses";
@@ -88,15 +88,15 @@ public class Parameters {
 
 	/**
 	 * Constructeur.
-	 * xmlReportFile n'est pas un paramètre du constructeur (reste null par défaut),
-	 * mais il y a une méthode setXmlReportFile.
-	 * @param directories Répertoires (ou fichiers jar, wars) à analyser
-	 * @param publicDeadCode Si détection du code mort public et protected
-	 * @param privateDeadCode Si détection du code mort package-private et private
-	 * @param localDeadCode Si détection du code mort des variables locales
-	 * @param initDeadCode Si détection des initialisations inutiles
-	 * @param excludedClasses Expressions régulières de classes (ou packages) à ne pas auditer (ex : mypackage.*)
-	 * @param excludedMethods Expressions régulières de méthodes ou attributs à ne pas auditer (ex : get.*)
+	 * xmlReportFile n'est pas un paramÃ¨tre du constructeur (reste null par dÃ©faut),
+	 * mais il y a une mÃ©thode setXmlReportFile.
+	 * @param directories RÃ©pertoires (ou fichiers jar, wars) Ã  analyser
+	 * @param publicDeadCode Si dÃ©tection du code mort public et protected
+	 * @param privateDeadCode Si dÃ©tection du code mort package-private et private
+	 * @param localDeadCode Si dÃ©tection du code mort des variables locales
+	 * @param initDeadCode Si dÃ©tection des initialisations inutiles
+	 * @param excludedClasses Expressions rÃ©guliÃ¨res de classes (ou packages) Ã  ne pas auditer (ex : mypackage.*)
+	 * @param excludedMethods Expressions rÃ©guliÃ¨res de mÃ©thodes ou attributs Ã  ne pas auditer (ex : get.*)
 	 */
 	public Parameters(List<File> directories, boolean publicDeadCode, boolean privateDeadCode,
 			boolean localDeadCode, boolean initDeadCode, List<Pattern> excludedClasses,
@@ -118,7 +118,7 @@ public class Parameters {
 	}
 
 	/**
-	 * Charge les paramètres depuis les propriétés systèmes (-Dproperty=value).
+	 * Charge les paramÃ¨tres depuis les propriÃ©tÃ©s systÃ¨mes (-Dproperty=value).
 	 * @return Parameters
 	 */
 	public static Parameters createFromSystemProperties() {
@@ -135,7 +135,7 @@ public class Parameters {
 	}
 
 	/**
-	 * Charge les paramètres depuis un fichier de configuration au format properties.
+	 * Charge les paramÃ¨tres depuis un fichier de configuration au format properties.
 	 * @param propertiesFile Fichier
 	 * @return Parameters
 	 * @throws IOException e
@@ -158,7 +158,7 @@ public class Parameters {
 	}
 
 	/**
-	 * Charge les paramètres depuis les préférences utilisateur.
+	 * Charge les paramÃ¨tres depuis les prÃ©fÃ©rences utilisateur.
 	 * @return Parameters
 	 * @throws BackingStoreException e
 	 */
@@ -175,7 +175,7 @@ public class Parameters {
 	}
 
 	/**
-	 * Ecrit les paramètres dans les préférences utilisateurs.
+	 * Ecrit les paramÃ¨tres dans les prÃ©fÃ©rences utilisateurs.
 	 * @throws BackingStoreException e
 	 */
 	public void writeToUserPreferences() throws BackingStoreException {
@@ -245,49 +245,49 @@ public class Parameters {
 	}
 
 	/**
-	 * @return Répertoires (ou fichiers jar, wars) à analyser.
+	 * @return RÃ©pertoires (ou fichiers jar, wars) Ã  analyser.
 	 */
 	public List<File> getDirectories() {
 		return directories;
 	}
 
 	/**
-	 * @return Expressions régulières de classes (ou packages) à ne pas auditer (ex : mypackage.*)
+	 * @return Expressions rÃ©guliÃ¨res de classes (ou packages) Ã  ne pas auditer (ex : mypackage.*)
 	 */
 	public List<Pattern> getExcludedClasses() {
 		return excludedClasses;
 	}
 
 	/**
-	 * @return Expressions régulières de méthodes ou attributs à ne pas auditer (ex : get.*)
+	 * @return Expressions rÃ©guliÃ¨res de mÃ©thodes ou attributs Ã  ne pas auditer (ex : get.*)
 	 */
 	public List<Pattern> getExcludedMethods() {
 		return excludedMethods;
 	}
 
 	/**
-	 * @return Booléen selon que le code mort public doit être détecté
+	 * @return BoolÃ©en selon que le code mort public doit Ãªtre dÃ©tectÃ©
 	 */
 	public boolean isPublicDeadCode() {
 		return publicDeadCode;
 	}
 
 	/**
-	 * @return Booléen selon que le code mort private doit être détecté
+	 * @return BoolÃ©en selon que le code mort private doit Ãªtre dÃ©tectÃ©
 	 */
 	public boolean isPrivateDeadCode() {
 		return privateDeadCode;
 	}
 
 	/**
-	 * @return Booléen selon que le code mort des variables locales doit être détecté
+	 * @return BoolÃ©en selon que le code mort des variables locales doit Ãªtre dÃ©tectÃ©
 	 */
 	public boolean isLocalDeadCode() {
 		return localDeadCode;
 	}
 
 	/**
-	 * @return Booléen selon que les initialisations inutiles doivent être détectées
+	 * @return BoolÃ©en selon que les initialisations inutiles doivent Ãªtre dÃ©tectÃ©es
 	 */
 	public boolean isInitDeadCode() {
 		return initDeadCode;
@@ -326,7 +326,7 @@ public class Parameters {
 	boolean isClassExcluded(String className) {
 		for (final Pattern pattern : getExcludedClasses()) {
 			if (pattern.matcher(className).matches()) {
-				// cette classe est exclue des classes auditées
+				// cette classe est exclue des classes auditÃ©es
 				return true;
 			}
 		}
@@ -336,7 +336,7 @@ public class Parameters {
 	boolean isMethodExcluded(String method) {
 		for (final Pattern pattern : getExcludedMethods()) {
 			if (pattern.matcher(method).matches()) {
-				// cette méthode (ou cet attribut) est exclue des méthodes auditées
+				// cette mÃ©thode (ou cet attribut) est exclue des mÃ©thodes auditÃ©es
 				return true;
 			}
 		}

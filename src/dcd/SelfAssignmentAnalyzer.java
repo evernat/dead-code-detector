@@ -32,8 +32,8 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 /**
- * Classe utilisée pour l'analyse des self assignment sur les fields dans les méthodes.
- * <br/>Algorithme tiré du guide ASM p100 pour les fields.
+ * Classe utilisÃ©e pour l'analyse des self assignment sur les fields dans les mÃ©thodes.
+ * <br/>Algorithme tirÃ© du guide ASM p100 pour les fields.
  * @author evernat
  */
 class SelfAssignmentAnalyzer { // NOPMD
@@ -48,8 +48,8 @@ class SelfAssignmentAnalyzer { // NOPMD
 	//CHECKSTYLE:OFF
 	@SuppressWarnings("unchecked")
 	Set<String> analyze() { // NOPMD
-		// la complexité de cette méthode est ignorée
-		// car c'est un exemple tiré presque tel quel du guide d'asm
+		// la complexitÃ© de cette mÃ©thode est ignorÃ©e
+		// car c'est un exemple tirÃ© presque tel quel du guide d'asm
 		for (final Iterator<AbstractInsnNode> it = methodNode.instructions.iterator(); it.hasNext();) {
 			final AbstractInsnNode i1 = it.next();
 			if (isALOAD0(i1)) {
@@ -57,8 +57,8 @@ class SelfAssignmentAnalyzer { // NOPMD
 				if (i2 != null && isALOAD0(i2)) {
 					AbstractInsnNode i3 = getNext(it);
 					while (i3 != null && isALOAD0(i3)) {
-						// non nécessaire : i1 = i2;
-						// non nécessaire : i2 = i3;
+						// non nÃ©cessaire : i1 = i2;
+						// non nÃ©cessaire : i2 = i3;
 						i3 = getNext(it);
 					}
 					if (i3 != null && i3.getOpcode() == Opcodes.GETFIELD) {

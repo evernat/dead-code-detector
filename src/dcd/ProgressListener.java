@@ -18,15 +18,15 @@
 package dcd;
 
 /**
- * Interface destinée à être implémentée et déclarée à DeadCodeDetector pour
- * connaître l'avancement de l'analyse.
- * Permet en particulier d'afficher la progression dans l'IHM (UI) sans établir
- * de dépendance directe du package dcd vers le package dcd.ui.
+ * Interface destinÃ©e Ã  Ãªtre implÃ©mentÃ©e et dÃ©clarÃ©e Ã  DeadCodeDetector pour
+ * connaÃ®tre l'avancement de l'analyse.
+ * Permet en particulier d'afficher la progression dans l'IHM (UI) sans Ã©tablir
+ * de dÃ©pendance directe du package dcd vers le package dcd.ui.
  * @author evernat
  */
 public interface ProgressListener {
 	/**
-	 * Méthode appelée sur un évènement de progression.
+	 * MÃ©thode appelÃ©e sur un Ã©vÃ¨nement de progression.
 	 * @param percentOfProgress int
 	 */
 	void onProgress(int percentOfProgress);

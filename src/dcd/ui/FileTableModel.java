@@ -26,7 +26,7 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * Modèle de données des fichiers pour le composant FileTable.
+ * ModÃ¨le de donnÃ©es des fichiers pour le composant FileTable.
  * @author evernat
  */
 class FileTableModel extends AbstractTableModel {

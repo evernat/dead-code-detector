@@ -36,13 +36,13 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 /**
- * Classe utilisée pour rassembler le contexte d'analyse et pour afficher les résultats.
+ * Classe utilisÃ©e pour rassembler le contexte d'analyse et pour afficher les rÃ©sultats.
  * @author evernat
  */
 class Result {
-	// ici, on utilise des Set, ordonnés ou non, car les contenus sont uniques et surtout
-	// car l'utilisation de (Linked)HashSet est ici légèrement plus rapide que ArrayList
-	// (Implementation Patterns p108 à 111)
+	// ici, on utilise des Set, ordonnÃ©s ou non, car les contenus sont uniques et surtout
+	// car l'utilisation de (Linked)HashSet est ici lÃ©gÃ¨rement plus rapide que ArrayList
+	// (Implementation Patterns p108 Ã  111)
 	private final Map<String, Set<String>> methodsByClassMap = new HashMap<String, Set<String>>();
 	private final Map<String, Set<String>> fieldsByClassMap = new HashMap<String, Set<String>>();
 	private final Map<String, String> superClassByClassMap = new HashMap<String, String>();
@@ -53,8 +53,8 @@ class Result {
 	private final Report report;
 
 	/**
-	 * Implémentation de l'interface MethodVisitor d'ASM utilisée lors de l'analyse
-	 * (parcours des appels de méthodes et d'attributs).
+	 * ImplÃ©mentation de l'interface MethodVisitor d'ASM utilisÃ©e lors de l'analyse
+	 * (parcours des appels de mÃ©thodes et d'attributs).
 	 */
 	private class CallersMethodVisitor extends MethodVisitor {
 		CallersMethodVisitor() {
@@ -64,7 +64,7 @@ class Result {
 		/** {@inheritDoc} */
 		@Override
 		public void visitMethodInsn(int opcode, String owner, String name, String desc) {
-			// les classes java et javax ne sont pas auditées
+			// les classes java et javax ne sont pas auditÃ©es
 			if (!DcdHelper.isJavaClass(owner)) {
 				//log("\t" + owner + " " + name + " " + desc);
 				methodCalled(owner, name, desc);
@@ -78,7 +78,7 @@ class Result {
 		/** {@inheritDoc} */
 		@Override
 		public void visitFieldInsn(int opcode, String owner, String name, String desc) {
-			// les classes java et javax ne sont pas auditées
+			// les classes java et javax ne sont pas auditÃ©es
 			if (isFieldRead(opcode) && !DcdHelper.isJavaClass(owner)) {
 				//log("\t" + owner + " " + name + " " + desc);
 				fieldCalled(owner, name, desc);
@@ -283,7 +283,7 @@ class Result {
 
 	void excludeJavaMethods(ClassReader classReader, Set<String> methods) {
 		// premier filtre : si mode public, on exclue
-		// les méthodes qui implémentent ou surchargent une méthode Java,
+		// les mÃ©thodes qui implÃ©mentent ou surchargent une mÃ©thode Java,
 		// par exemple actionPerformed, equals, hashCode
 		// (le filtre final sera fait dans filterJavaMethods)
 		if (DcdHelper.isJavaClass(classReader.getSuperName())) {
@@ -343,32 +343,32 @@ class Result {
 		// Gestion des appels directs sur un objet ou une classe.
 		methodCalledInternal(className, name, desc, targetMap);
 
-		// Gestion des appels dynamiques sur un objet (la classe est déduite à l'exécution
-		// en fonction de l'héritage selon le principe du polymorphisme).
+		// Gestion des appels dynamiques sur un objet (la classe est dÃ©duite Ã  l'exÃ©cution
+		// en fonction de l'hÃ©ritage selon le principe du polymorphisme).
 		// NB: Le polymorphisme sur les interfaces ne rentre en compte que si
-		// on a fait l'indexation en mode public car sinon les méthodes des interfaces étant
-		// publiques, on ne s'intéresserait qu'aux méthodes packages ou private.
+		// on a fait l'indexation en mode public car sinon les mÃ©thodes des interfaces Ã©tant
+		// publiques, on ne s'intÃ©resserait qu'aux mÃ©thodes packages ou private.
 
 		// super-classe et super-super-classes (il arrive parfois qu'une classe fille
-		// appelle une méthode package non statique de sa classe mère, ou bien que la méthode de la classe mère
-		// soit appelée par l'intermédiaire d'un objet de la classe fille par exemple)
+		// appelle une mÃ©thode package non statique de sa classe mÃ¨re, ou bien que la mÃ©thode de la classe mÃ¨re
+		// soit appelÃ©e par l'intermÃ©diaire d'un objet de la classe fille par exemple)
 		String superClass = superClassByClassMap.get(className);
 		while (superClass != null && !DcdHelper.isJavaClass(superClass)) {
 			methodCalledInternal(superClass, name, desc, targetMap);
 			superClass = superClassByClassMap.get(superClass);
 		}
 		// sous-classes et sous-sous-classes
-		// (il arrive qu'une méthode définie et appelée dans une classe mère
-		// soit surchargée dans une classe fille)
+		// (il arrive qu'une mÃ©thode dÃ©finie et appelÃ©e dans une classe mÃ¨re
+		// soit surchargÃ©e dans une classe fille)
 		for (final String subClass : getAllSubClasses(className)) {
 			methodCalledInternal(subClass, name, desc, targetMap);
 
-			// il arrive qu'une méthode définie dans une super-classe
-			// soit appelée par une interface de la sous-classe
-			// (par ex, GenericDAOAbstract.findAll appelée sur l'interface MonDAO
-			// qui est implémentée par MonDAOImpl héritant de GenericDAOAbstract
-			// même si toutes ces couches sont probablement peu utiles,
-			// et cela compile au départ car MonDAO hérite de l'interface GenericDAO)
+			// il arrive qu'une mÃ©thode dÃ©finie dans une super-classe
+			// soit appelÃ©e par une interface de la sous-classe
+			// (par ex, GenericDAOAbstract.findAll appelÃ©e sur l'interface MonDAO
+			// qui est implÃ©mentÃ©e par MonDAOImpl hÃ©ritant de GenericDAOAbstract
+			// mÃªme si toutes ces couches sont probablement peu utiles,
+			// et cela compile au dÃ©part car MonDAO hÃ©rite de l'interface GenericDAO)
 			String superClass2 = superClassByClassMap.get(subClass);
 			while (superClass2 != null && !superClass2.equals(className)
 					&& !DcdHelper.isJavaClass(superClass2)) {
@@ -391,7 +391,7 @@ class Result {
 
 	int reportDeadCode(boolean publicDeadCode) throws XMLStreamException {
 		int suspects = 0;
-		// TreeMap pour ordre d'affichage alphabétique par classe
+		// TreeMap pour ordre d'affichage alphabÃ©tique par classe
 		for (final Map.Entry<String, Set<String>> entry : new TreeMap<String, Set<String>>(
 				methodsByClassMap).entrySet()) {
 			final String asmClassName = entry.getKey();

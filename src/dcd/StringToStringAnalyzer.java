@@ -25,7 +25,7 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
 /**
- * Classe utilisée pour l'analyse des appels de toString() sur des String dans les méthodes.
+ * Classe utilisÃ©e pour l'analyse des appels de toString() sur des String dans les mÃ©thodes.
  * @author evernat
  */
 class StringToStringAnalyzer {
@@ -47,7 +47,7 @@ class StringToStringAnalyzer {
 				final MethodInsnNode methodInsnNode = (MethodInsnNode) instruction;
 				if (STRING_INTERNAL_NAME.equals(methodInsnNode.owner)
 						&& "toString".equals(methodInsnNode.name)) {
-					// il n'y a qu'une méthode toString dans la classe String, inutile de vérifier desc
+					// il n'y a qu'une mÃ©thode toString dans la classe String, inutile de vÃ©rifier desc
 					return true;
 				}
 			}

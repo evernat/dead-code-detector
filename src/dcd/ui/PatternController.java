@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
- * Contrôleur pour la gestion des filtres (design pattern MVC).
+ * ContrÃ´leur pour la gestion des filtres (design pattern MVC).
  * @author evernat
  */
 class PatternController implements Serializable {
@@ -46,7 +46,7 @@ class PatternController implements Serializable {
 	private void addPattern(String initialValue) {
 		final String regexp = (String) JOptionPane.showInputDialog(patternTable, addMessage,
 				"Add a filter", JOptionPane.PLAIN_MESSAGE, null, null, initialValue);
-		// annulé si regexp null
+		// annulÃ© si regexp null
 		if (regexp != null) {
 			if (regexp.isEmpty()) {
 				DcdUiHelper.handleException(new IllegalStateException(

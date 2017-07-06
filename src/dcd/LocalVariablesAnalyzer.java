@@ -38,7 +38,7 @@ import org.objectweb.asm.tree.TryCatchBlockNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 /**
- * Classe utilisée pour l'analyse des variables locales dans les méthodes.
+ * Classe utilisÃ©e pour l'analyse des variables locales dans les mÃ©thodes.
  * @author evernat
  */
 class LocalVariablesAnalyzer {
@@ -59,15 +59,15 @@ class LocalVariablesAnalyzer {
 
 	@SuppressWarnings(UNCHECKED)
 	Set<LocalVariableNode> analyzeMethod() {
-		// si seulement 1 variable locale ("this") ou si seulement des "variables locales" pour les paramètres et pour "this",
-		// alors on passe à la méthode suivante
+		// si seulement 1 variable locale ("this") ou si seulement des "variables locales" pour les paramÃ¨tres et pour "this",
+		// alors on passe Ã  la mÃ©thode suivante
 		if (localVariables.isEmpty()) {
 			return Collections.emptySet();
 		}
 		for (final Iterator<AbstractInsnNode> it = methodNode.instructions.iterator(); it.hasNext();) {
 			analyzeInstruction(it.next());
 			if (localVariables.isEmpty()) {
-				// si toutes les variables ont été utilisées, inutile de continuer à lire les instructions
+				// si toutes les variables ont Ã©tÃ© utilisÃ©es, inutile de continuer Ã  lire les instructions
 				return Collections.emptySet();
 			}
 		}
@@ -78,10 +78,10 @@ class LocalVariablesAnalyzer {
 	void analyzeInnerClass(ClassNode innerClass) {
 		if (methodNode.name.equals(innerClass.outerMethod)
 				&& methodNode.desc.equals(innerClass.outerMethodDesc)) {
-			// s'il y a une classe interne créée dans cette méthode
-			// utilisant éventuellement une variable finale de cette méthode,
-			// alors on cherche les constantes de variables (et uniquement celles-ci) dans toutes ses méthodes
-			// (si ce n'est pas une constante, alors elle serait déjà détectée utilisée dans la méthode)
+			// s'il y a une classe interne crÃ©Ã©e dans cette mÃ©thode
+			// utilisant Ã©ventuellement une variable finale de cette mÃ©thode,
+			// alors on cherche les constantes de variables (et uniquement celles-ci) dans toutes ses mÃ©thodes
+			// (si ce n'est pas une constante, alors elle serait dÃ©jÃ  dÃ©tectÃ©e utilisÃ©e dans la mÃ©thode)
 			for (final MethodNode innerMethodNode : (List<MethodNode>) innerClass.methods) {
 				for (final Iterator<AbstractInsnNode> it = innerMethodNode.instructions.iterator(); it
 						.hasNext();) {
@@ -90,7 +90,7 @@ class LocalVariablesAnalyzer {
 					// CHECKSTYLE:ON
 					analyzeConstantInstruction(instruction);
 					if (localVariables.isEmpty()) {
-						// si toutes les variables ont été utilisées, inutile de continuer à lire les instructions
+						// si toutes les variables ont Ã©tÃ© utilisÃ©es, inutile de continuer Ã  lire les instructions
 						return;
 					}
 				}
@@ -112,8 +112,8 @@ class LocalVariablesAnalyzer {
 		}
 		final Set<LocalVariableNode> variables = new LinkedHashSet<LocalVariableNode>(
 				methodNode.localVariables);
-		// on ignore les variables locales "this" et celles des paramètres
-		// (attention les variables ne sont pas forcément dans l'ordre des index, en eclipse 3.1 ou 3.2 ?)
+		// on ignore les variables locales "this" et celles des paramÃ¨tres
+		// (attention les variables ne sont pas forcÃ©ment dans l'ordre des index, en eclipse 3.1 ou 3.2 ?)
 		final int nbParameters = Type.getArgumentTypes(methodNode.desc).length + oneIfThisExists;
 		for (final Iterator<LocalVariableNode> it = variables.iterator(); it.hasNext();) {
 			final int index = it.next().index;
@@ -127,7 +127,7 @@ class LocalVariablesAnalyzer {
 	@SuppressWarnings(UNCHECKED)
 	private void filterCatchVariables() {
 		// on supprime les variables des blocs catchs (comme eclipse, etc...),
-		// avant de supprimer les doublons car les blocs catchs provoquent parfois des variables de même index
+		// avant de supprimer les doublons car les blocs catchs provoquent parfois des variables de mÃªme index
 		for (final TryCatchBlockNode tryCatchBlock : (List<TryCatchBlockNode>) methodNode.tryCatchBlocks) {
 			// TODO est-ce qu'il y a un meilleur moyen d'identifier la variable de l'exception autrement que par son type ?
 			final String type = tryCatchBlock.type;
@@ -149,9 +149,9 @@ class LocalVariablesAnalyzer {
 	private void filterDuplicates() {
 		// et on supprime les doublons,
 		// qui arrivent avec le code suivant : final String s; if (b) s = "t"; else s = "f";,
-		// Rq: du coup on peut avoir des faux négatifs avec le code suivant, mais tant pis :
+		// Rq: du coup on peut avoir des faux nÃ©gatifs avec le code suivant, mais tant pis :
 		// if (b) { Object o = new Object(); test(o); } else { Object o = new Object(); }
-		// (attention les variables ne sont pas forcément dans l'ordre des index, en eclipse 3.1 ou 3.2 ?)
+		// (attention les variables ne sont pas forcÃ©ment dans l'ordre des index, en eclipse 3.1 ou 3.2 ?)
 		for (final Iterator<LocalVariableNode> it = localVariables.iterator(); it.hasNext();) {
 			final LocalVariableNode localVariable = it.next();
 			for (final LocalVariableNode localVariable2 : localVariables) {
@@ -168,24 +168,24 @@ class LocalVariablesAnalyzer {
 		// CHECKSTYLE:OFF
 		final AbstractInsnNode instruction = (AbstractInsnNode) instructionObject;
 		// CHECKSTYLE:ON
-		// rq : on ne considère pas une instruction d'incrémentation (opcode IINC, type
-		// IincInsnNode) comme une instruction de lecture car elle ne lit pas elle-même la variable,
-		// IINC équivaut à une écriture par incrémentation (store) de la variable
+		// rq : on ne considÃ¨re pas une instruction d'incrÃ©mentation (opcode IINC, type
+		// IincInsnNode) comme une instruction de lecture car elle ne lit pas elle-mÃªme la variable,
+		// IINC Ã©quivaut Ã  une Ã©criture par incrÃ©mentation (store) de la variable
 		if (isRead(instruction.getOpcode())) {
-			// si c'est une lecture de variable, alors la variable est utilisée
-			// (une instruction d'opcode xLOAD est forcément de type VarInsnNode)
+			// si c'est une lecture de variable, alors la variable est utilisÃ©e
+			// (une instruction d'opcode xLOAD est forcÃ©ment de type VarInsnNode)
 			removeLocalVariable((VarInsnNode) instruction);
 		} else if (isStore(instruction.getOpcode())) {
 			if (instruction.getPrevious().getOpcode() == Opcodes.LDC) {
-				// si c'est une écriture de variable avec une constante de méthode
-				// alors la variable est utilisée si la même constante est lue ensuite
-				// (une instruction d'opcode xSTORE est forcément de type VarInsnNode,
-				// une instruction d'opcode LDC est forcément de type LdcInsnNode)
+				// si c'est une Ã©criture de variable avec une constante de mÃ©thode
+				// alors la variable est utilisÃ©e si la mÃªme constante est lue ensuite
+				// (une instruction d'opcode xSTORE est forcÃ©ment de type VarInsnNode,
+				// une instruction d'opcode LDC est forcÃ©ment de type LdcInsnNode)
 				varInstructionsByConstantesMap.put(((LdcInsnNode) instruction.getPrevious()).cst,
 						(VarInsnNode) instruction);
 			} else if (isSimpleConstant(instruction.getPrevious())) {
-				// si c'est une écriture de variable avec une constante telle false, 0 ou 57
-				// alors la variable est considérée comme utilisée
+				// si c'est une Ã©criture de variable avec une constante telle false, 0 ou 57
+				// alors la variable est considÃ©rÃ©e comme utilisÃ©e
 				removeLocalVariable((VarInsnNode) instruction);
 			}
 		} else {
@@ -198,10 +198,10 @@ class LocalVariablesAnalyzer {
 		final AbstractInsnNode instruction = (AbstractInsnNode) instructionObject;
 		// CHECKSTYLE:ON
 		if (instruction.getOpcode() == Opcodes.LDC) {
-			// une instruction d'opcode LDC est forcément de type LdcInsnNode
+			// une instruction d'opcode LDC est forcÃ©ment de type LdcInsnNode
 			final VarInsnNode varInstruction = varInstructionsByConstantesMap
 					.get(((LdcInsnNode) instruction).cst);
-			// varInstruction peut être null si cette constante n'est pas dans une variable
+			// varInstruction peut Ãªtre null si cette constante n'est pas dans une variable
 			if (varInstruction != null) {
 				removeLocalVariable(varInstruction);
 			}

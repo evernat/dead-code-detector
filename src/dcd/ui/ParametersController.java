@@ -39,7 +39,7 @@ import dcd.Parameters;
 import dcd.ProgressListener;
 
 /**
- * Contrôleur de l'IHM (design pattern Modèle-Vue-Contrôleur).
+ * ContrÃ´leur de l'IHM (design pattern ModÃ¨le-Vue-ContrÃ´leur).
  * @author evernat
  */
 class ParametersController implements ProgressListener, Serializable {
@@ -193,10 +193,10 @@ class ParametersController implements ProgressListener, Serializable {
 
 		final Thread myThread = thread; // NOPMD
 		if (myThread != null) {
-			// isInterrupted sera testée dans DeadCodeDetector
+			// isInterrupted sera testÃ©e dans DeadCodeDetector
 			myThread.interrupt();
 			// on attend la fin du thread,
-			// notamment dans le cas où l'application est en cours de fermeture
+			// notamment dans le cas oÃ¹ l'application est en cours de fermeture
 			try {
 				myThread.join();
 			} catch (final Exception e) {

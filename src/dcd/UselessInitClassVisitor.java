@@ -29,7 +29,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 /**
- * Implémentation de l'interface ClassVisitor d'ASM utilisée lors de l'analyse des initialisations inutiles.
+ * ImplÃ©mentation de l'interface ClassVisitor d'ASM utilisÃ©e lors de l'analyse des initialisations inutiles.
  * @author evernat
  */
 class UselessInitClassVisitor extends ClassVisitor {
@@ -220,7 +220,7 @@ class UselessInitClassVisitor extends ClassVisitor {
 	@Override
 	public FieldVisitor visitField(int access, String name, String desc, String signature,
 			Object value) {
-		// si le field est final, il doit être initialisé sinon cela ne compile pas
+		// si le field est final, il doit Ãªtre initialisÃ© sinon cela ne compile pas
 		// donc on ignore les fields final
 		if ((access & Opcodes.ACC_FINAL) == 0) {
 			possibleFields.add(name);

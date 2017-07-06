@@ -25,8 +25,8 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 /**
- * Implémentation de l'interface ClassVisitor d'ASM utilisée lors de l'analyse
- * (parcours des appels de méthodes et d'attributs).
+ * ImplÃ©mentation de l'interface ClassVisitor d'ASM utilisÃ©e lors de l'analyse
+ * (parcours des appels de mÃ©thodes et d'attributs).
  * @author evernat
  */
 class CallersClassVisitor extends ClassVisitor {

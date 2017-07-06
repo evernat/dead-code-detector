@@ -22,7 +22,7 @@ import java.awt.Dimension;
 import javax.swing.table.TableColumn;
 
 /**
- * Tableau des fichiers à analyser.
+ * Tableau des fichiers Ã  analyser.
  * @author evernat
  */
 class FileTable extends Table {

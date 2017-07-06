@@ -36,7 +36,7 @@
 	<target name="build" depends="init">
 		<echo message="Compilation" level="info" />
 		<mkdir dir="build" />
-		<javac debug="on" deprecation="on" encoding="Cp1252" nowarn="off" source="1.6" target="1.6" includeantruntime="false"
+		<javac debug="on" deprecation="on" encoding="UTF-8" nowarn="off" source="1.6" target="1.6" includeantruntime="false"
 			srcdir="src" destdir="build" classpath="lib/asm-4.0.jar;lib/asm-tree-4.0.jar" />
 	</target>
 

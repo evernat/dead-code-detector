@@ -34,12 +34,12 @@ import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
 
 /**
- * Affichage et export xml des résultats d'analyses.
+ * Affichage et export xml des rÃ©sultats d'analyses.
  * @author evernat
  */
 class Report {
 	private static final String XML_INDENT = "  ";
-	// retour à la ligne xml normalisé (http://www.w3.org/TR/xml11/#sec-line-ends)
+	// retour Ã  la ligne xml normalisÃ© (http://www.w3.org/TR/xml11/#sec-line-ends)
 	private static final String XML_END_OF_LINE = "\n";
 	private final OutputStream output;
 	private final XMLStreamWriter xmlStreamWriter;
@@ -180,7 +180,7 @@ class Report {
 				xmlStreamWriter.writeCharacters(msg2);
 			}
 			xmlStreamWriter.writeEndElement();
-			xmlStreamWriter.writeCharacters(XML_END_OF_LINE); // retour à la ligne pour lisibilité
+			xmlStreamWriter.writeCharacters(XML_END_OF_LINE); // retour Ã  la ligne pour lisibilitÃ©
 		}
 	}
 

@@ -143,13 +143,13 @@ final class DcdHelper {
 	static File unzipIntoTempDirectory(File file) throws IOException {
 		final int random = new SecureRandom().nextInt();
 		final File tmpDirectory = new File(System.getProperty("java.io.tmpdir"), "tmpdcd" + random);
-		// on ajoute random au répertoire temporaire pour l'utilisation d'instances en parallèle
+		// on ajoute random au rÃ©pertoire temporaire pour l'utilisation d'instances en parallÃ¨le
 		if (!tmpDirectory.exists() && !tmpDirectory.mkdirs()) {
 			throw new IOException(tmpDirectory + " can't be created");
 		}
 		final ZipFile zipFile = new ZipFile(file);
 		try {
-			final byte[] buffer = new byte[64 * 1024]; // buffer de 64 Ko pour la décompression
+			final byte[] buffer = new byte[64 * 1024]; // buffer de 64 Ko pour la dÃ©compression
 			final Enumeration<? extends ZipEntry> entries = zipFile.entries();
 			while (entries.hasMoreElements() && !Thread.currentThread().isInterrupted()) {
 				final ZipEntry zipEntry = entries.nextElement();

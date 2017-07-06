@@ -96,7 +96,7 @@ final class DcdUiHelper {
 	}
 
 	static void packIfNotMaximized(Window window) {
-		// window peut être null lors de l'initialisation
+		// window peut Ãªtre null lors de l'initialisation
 		if (window instanceof Frame
 				&& (((Frame) window).getExtendedState() & Frame.MAXIMIZED_BOTH) == 0) {
 			window.pack();

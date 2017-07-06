@@ -34,8 +34,8 @@
 		<tag>HEAD</tag>
 	</scm>
 	<properties>
-		<project.reporting.outputEncoding>Cp1252</project.reporting.outputEncoding>
-		<project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<prerequisites>
 		<maven>3.0.4</maven>
@@ -73,7 +73,6 @@
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
-					<encoding>Cp1252</encoding>
 				</configuration>
 			</plugin>
 			<plugin>

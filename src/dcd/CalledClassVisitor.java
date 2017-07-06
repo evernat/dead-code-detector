@@ -31,9 +31,9 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 /**
- * Implémentation de l'interface ClassVisitor d'ASM utilisée lors de l'indexation
- * (parcours des classes pour lister les méthodes et les attributs
- * appelables soit en mode public, soit en mode privé).
+ * ImplÃ©mentation de l'interface ClassVisitor d'ASM utilisÃ©e lors de l'indexation
+ * (parcours des classes pour lister les mÃ©thodes et les attributs
+ * appelables soit en mode public, soit en mode privÃ©).
  * @author evernat
  */
 class CalledClassVisitor extends ClassVisitor {
@@ -48,9 +48,9 @@ class CalledClassVisitor extends ClassVisitor {
 	private static final int OPCODE_FIELD_INLINEABLE = Opcodes.ACC_FINAL | Opcodes.ACC_STATIC;
 	// voir http://java.sun.com/javase/6/docs/platform/serialization/spec/serialTOC.html pour read/write*,
 	// values() et valueOf(String) pour les enum
-	// (méthodes non synthétiques malheureusement conformément à la spec),
+	// (mÃ©thodes non synthÃ©tiques malheureusement conformÃ©ment Ã  la spec),
 	// getPort et setEndpointAddress pour les services web
-	// (getPort pourrait être évité avec jaxrpc dans classpath et setEndpointAddress pour axis)
+	// (getPort pourrait Ãªtre Ã©vitÃ© avec jaxrpc dans classpath et setEndpointAddress pour axis)
 	private static final Set<String> IGNORED_METHODS = Collections
 			.unmodifiableSet(new HashSet<String>(Arrays.asList(new String[] { "<clinit>", "main",
 					"readResolve", "readObject", "readExternal", "writeObject", "writeExternal",
@@ -71,8 +71,8 @@ class CalledClassVisitor extends ClassVisitor {
 	}
 
 	private boolean isMethodFiltered(int asmAccess) {
-		// si mode private, on filtre public et abstract/synthétic,
-		// si mode public, on filtre private, abstract/synthétic
+		// si mode private, on filtre public et abstract/synthÃ©tic,
+		// si mode public, on filtre private, abstract/synthÃ©tic
 		//    et ce qui n'est pas non plus public ou protected (car package-private n'a pas d'opcode)
 		return !publicIndexation
 				&& (asmAccess & OPCODE_PUBLIC_METHOD_FILTERED) != 0
@@ -86,7 +86,7 @@ class CalledClassVisitor extends ClassVisitor {
 	}
 
 	private boolean isPublicAccessorFiltered(int access, String name, String desc) {
-		// getter public sans paramètre ou setter public avec un paramètre
+		// getter public sans paramÃ¨tre ou setter public avec un paramÃ¨tre
 		return (access & Opcodes.ACC_PUBLIC) != 0 && (isGetter(name, desc) || isSetter(name, desc));
 	}
 
@@ -115,7 +115,7 @@ class CalledClassVisitor extends ClassVisitor {
 			String[] interfaces) {
 		//log(name + " extends " + superName + " {");
 		if (isClassFiltered(access)) {
-			// les annotations et les interfaces n'appellent pas de méthodes (ou d'attributs) :
+			// les annotations et les interfaces n'appellent pas de mÃ©thodes (ou d'attributs) :
 			// on ignore la visite de cette classe
 			methods = null;
 			fields = null;
@@ -126,13 +126,13 @@ class CalledClassVisitor extends ClassVisitor {
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature,
 			String[] exceptions) {
-		// méthode filtrée si c'est une méthode abstract ou selon la visibilité
-		// ou s'il s'agit de méthodes spéciales (<clinit>, main, readResolve, enum valueOf ...)
-		// ou s'il s'agit de getter/setter public (souvent appelés par réflexion, par exemple par tag jsp, par spring ou jpa)
-		// et on filtre les constructeurs sans paramètes car :
-		// - les classes utilitaires ont des constructeurs privés non utilisés
-		// - ou il y a un constructeur public par défaut (pour Class#newInstance ou pour PMD)
-		// - ou le constructeur a été généré par le compilateur
+		// mÃ©thode filtrÃ©e si c'est une mÃ©thode abstract ou selon la visibilitÃ©
+		// ou s'il s'agit de mÃ©thodes spÃ©ciales (<clinit>, main, readResolve, enum valueOf ...)
+		// ou s'il s'agit de getter/setter public (souvent appelÃ©s par rÃ©flexion, par exemple par tag jsp, par spring ou jpa)
+		// et on filtre les constructeurs sans paramÃ¨tes car :
+		// - les classes utilitaires ont des constructeurs privÃ©s non utilisÃ©s
+		// - ou il y a un constructeur public par dÃ©faut (pour Class#newInstance ou pour PMD)
+		// - ou le constructeur a Ã©tÃ© gÃ©nÃ©rÃ© par le compilateur
 		if (methods != null && !isMethodFiltered(access)
 				&& !isDefaultConstructorFiltered(access, name, desc)
 				&& !isPublicAccessorFiltered(access, name, desc) && !IGNORED_METHODS.contains(name)) {
@@ -146,7 +146,7 @@ class CalledClassVisitor extends ClassVisitor {
 	public FieldVisitor visitField(int access, String name, String desc, String signature,
 			Object value) {
 		//log(" " + desc + " " + name);
-		// attribut filtré selon visibilité et si pas inlineable (constantes int, String...)
+		// attribut filtrÃ© selon visibilitÃ© et si pas inlineable (constantes int, String...)
 		if (fields != null && !isMethodFiltered(access) && !isFieldInlineable(access, desc)) {
 			fields.add(DcdHelper.getMethodKey(name, desc));
 		}

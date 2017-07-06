@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * Modèle de données des patterns de regexp pour le composant PatternTable.
+ * ModÃ¨le de donnÃ©es des patterns de regexp pour le composant PatternTable.
  * @author evernat
  */
 class PatternTableModel extends AbstractTableModel {

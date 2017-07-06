@@ -37,7 +37,7 @@ import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
 
 /**
- * Classe principale de DCD en mode texte avec la méthode main.
+ * Classe principale de DCD en mode texte avec la mÃ©thode main.
  * @author evernat
  */
 public class DeadCodeDetector {
@@ -58,7 +58,7 @@ public class DeadCodeDetector {
 	private Step currentStep;
 
 	/**
-	 * Enumération des différentes étapes possibles.
+	 * EnumÃ©ration des diffÃ©rentes Ã©tapes possibles.
 	 */
 	private static enum Step {
 		/**
@@ -70,15 +70,15 @@ public class DeadCodeDetector {
 		 */
 		LOCAL_ANALYSIS("Analysing local"),
 		/**
-		 * Etape 2 : indexation et analyse des méthodes et champs private ou package-private.
+		 * Etape 2 : indexation et analyse des mÃ©thodes et champs private ou package-private.
 		 */
 		PRIVATE_INDEXATION_AND_ANALYSIS("Analysing private"),
 		/**
-		 * Etape 3 : indexation des méthodes et champs public ou protected.
+		 * Etape 3 : indexation des mÃ©thodes et champs public ou protected.
 		 */
 		PUBLIC_INDEXATION("Indexing public"),
 		/**
-		 * Etape 4 : analyse des méthodes et champs public ou protected.
+		 * Etape 4 : analyse des mÃ©thodes et champs public ou protected.
 		 */
 		PUBLIC_ANALYSIS("Analysing public");
 
@@ -95,7 +95,7 @@ public class DeadCodeDetector {
 
 	/**
 	 * Constructeur.
-	 * @param directory Répertoire à analyser
+	 * @param directory RÃ©pertoire Ã  analyser
 	 * @throws IOException e
 	 * @throws XMLStreamException e
 	 */
@@ -105,7 +105,7 @@ public class DeadCodeDetector {
 
 	/**
 	 * Constructeur.
-	 * @param directories Répertoires (ou fichiers jar, wars) à analyser
+	 * @param directories RÃ©pertoires (ou fichiers jar, wars) Ã  analyser
 	 * @throws IOException e
 	 * @throws XMLStreamException e
 	 */
@@ -157,7 +157,7 @@ public class DeadCodeDetector {
 				final long tmp = this.progressSize;
 				// package exclu, on compte la progression et on passe au suivant
 				addProgressSize(dir, packageName);
-				// on ajoute la progression une 2ème fois comme si indexation puis analyse
+				// on ajoute la progression une 2Ã¨me fois comme si indexation puis analyse
 				this.progressSize += this.progressSize - tmp;
 				break;
 			}
@@ -168,8 +168,8 @@ public class DeadCodeDetector {
 
 			suspectCount += result.reportDeadCode(false);
 
-			// après chaque analyse de répertoire on supprime les données inutiles pour ne pas perturber
-			// l'analyse du répertoire suivant et pour économiser la mémoire à la fin
+			// aprÃ¨s chaque analyse de rÃ©pertoire on supprime les donnÃ©es inutiles pour ne pas perturber
+			// l'analyse du rÃ©pertoire suivant et pour Ã©conomiser la mÃ©moire Ã  la fin
 			result.clear();
 			break;
 		case INIT_ANALYSIS:
@@ -208,7 +208,7 @@ public class DeadCodeDetector {
 				|| currentStep == Step.PRIVATE_INDEXATION_AND_ANALYSIS && noPublic
 				|| currentStep == Step.LOCAL_ANALYSIS && noPublicOrPrivate
 				|| currentStep == Step.INIT_ANALYSIS && noPublicPrivateOrLocal) {
-			// si il faut analyser les classes en plusieurs étapes, inutile de compter les classes plusieurs fois
+			// si il faut analyser les classes en plusieurs Ã©tapes, inutile de compter les classes plusieurs fois
 			analyzedClassCount += classCount;
 		}
 	}
@@ -254,7 +254,7 @@ public class DeadCodeDetector {
 	private void addProgressSize(File file) {
 		if (getProgressListener() != null) {
 			if (file.isDirectory()) {
-				// c'est un package ignoré, on ajoute sa taille à la progression sans être récursif
+				// c'est un package ignorÃ©, on ajoute sa taille Ã  la progression sans Ãªtre rÃ©cursif
 				progressSize += DcdHelper.getClassTotalSize(file, false);
 			} else {
 				progressSize += file.length();
@@ -310,7 +310,7 @@ public class DeadCodeDetector {
 		final String asmClassName = classReader.getClassName();
 		final String asmSuperClassName = classReader.getSuperName();
 		if (isPublicIndexationStep() || !DcdHelper.isJavaClass(asmSuperClassName)) {
-			// les classes java et javax ne sont pas auditées
+			// les classes java et javax ne sont pas auditÃ©es
 			result.registerSuperClass(asmSuperClassName, asmClassName);
 			result.registerSubClass(asmSuperClassName, asmClassName);
 			if (isPublicIndexationStep()) {
@@ -346,9 +346,9 @@ public class DeadCodeDetector {
 					| ClassReader.SKIP_FRAMES);
 			final Set<String> positiveFields = uselessInitClassVisitor.positiveFields;
 			if (!positiveFields.isEmpty()) {
-				// les classes *ServiceLocator générées par Apache Axis
+				// les classes *ServiceLocator gÃ©nÃ©rÃ©es par Apache Axis
 				// contiennent une initialisation "ports" inutile,
-				// mais il est inutile de le signaler puisque c'est généré par Axis
+				// mais il est inutile de le signaler puisque c'est gÃ©nÃ©rÃ© par Axis
 				if (className.endsWith("ServiceLocator") && positiveFields.size() == 1
 						&& positiveFields.contains("ports")) {
 					continue;
@@ -366,9 +366,9 @@ public class DeadCodeDetector {
 			if (isInterrupted()) {
 				break;
 			}
-			// les classes *SoapBindingStub générées par Apache Axis
-			// contiennent beaucoup des variables locales non utilisées,
-			// mais il est inutile de le signaler puisque c'est généré par Axis
+			// les classes *SoapBindingStub gÃ©nÃ©rÃ©es par Apache Axis
+			// contiennent beaucoup des variables locales non utilisÃ©es,
+			// mais il est inutile de le signaler puisque c'est gÃ©nÃ©rÃ© par Axis
 			if (!className.endsWith("SoapBindingStub")) {
 				final ClassNode classNode = new ClassNode();
 				final ClassReader classReader = createClassReader(dir, className);
@@ -395,19 +395,19 @@ public class DeadCodeDetector {
 		if (localVariables.isEmpty()) {
 			return;
 		}
-		// on exclue éventuellement les variables avec les mêmes filtres que les méthodes
+		// on exclue Ã©ventuellement les variables avec les mÃªmes filtres que les mÃ©thodes
 		for (final Iterator<LocalVariableNode> it = localVariables.iterator(); it.hasNext();) {
 			final LocalVariableNode localVariable = it.next();
 			if (parameters.isMethodExcluded(localVariable.name)) {
 				it.remove();
 			}
 		}
-		// s'il reste des variables on regarde s'il y a des classes internes à la méthode
+		// s'il reste des variables on regarde s'il y a des classes internes Ã  la mÃ©thode
 		for (final InnerClassNode innerClassNode : (List<InnerClassNode>) classNode.innerClasses) {
 			if (innerClassNode.outerName != null
 					&& !innerClassNode.outerName.equals(classNode.name)) {
-				// des classes internes n'ont parfois pas la même classe externe ???
-				// (on ignore car la classe interne n'est alors pas forcément dans le même répertoire)
+				// des classes internes n'ont parfois pas la mÃªme classe externe ???
+				// (on ignore car la classe interne n'est alors pas forcÃ©ment dans le mÃªme rÃ©pertoire)
 				continue;
 			}
 			final ClassNode innerClass = new ClassNode();
@@ -415,7 +415,7 @@ public class DeadCodeDetector {
 			innerClassReader.accept(innerClass, ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 			localVariablesAnalyzer.analyzeInnerClass(innerClass);
 			if (localVariables.isEmpty()) {
-				// si toutes les variables ont été utilisées, inutile de continuer à lire les classes internes
+				// si toutes les variables ont Ã©tÃ© utilisÃ©es, inutile de continuer Ã  lire les classes internes
 				break;
 			}
 		}
@@ -436,7 +436,7 @@ public class DeadCodeDetector {
 	}
 
 	/**
-	 * Méthode exécutée pour lancer l'audit.
+	 * MÃ©thode exÃ©cutÃ©e pour lancer l'audit.
 	 * @throws IOException e
 	 * @throws XMLStreamException e
 	 */
@@ -451,9 +451,9 @@ public class DeadCodeDetector {
 					break;
 				}
 				if (DcdHelper.isJarOrWarFile(file)) {
-					// décompression du fichier jar ou war
+					// dÃ©compression du fichier jar ou war
 
-					// TODO Si le JRE utilisé est en v7, on pourrait peut-être éviter de décompresser les jars
+					// TODO Si le JRE utilisÃ© est en v7, on pourrait peut-Ãªtre Ã©viter de dÃ©compresser les jars
 					// en utilisant un In-memory filesystem (shrinkwrap nio2 par exemple),
 					// http://exitcondition.alrubinger.com/2012/08/17/shrinkwrap-nio2/
 					//					final JavaArchive archive = ShrinkWrap.create(JavaArchive.class, "myArchive.jar");
@@ -469,9 +469,9 @@ public class DeadCodeDetector {
 							true) : 0;
 				}
 			}
-			// les classes étant analysées à chaque étape (2 fois si mode public ou private),
-			// hors filtres que l'on ignore et classes internes analysées plusieurs fois si local également,
-			// on multiplie totalSize par les étapes
+			// les classes Ã©tant analysÃ©es Ã  chaque Ã©tape (2 fois si mode public ou private),
+			// hors filtres que l'on ignore et classes internes analysÃ©es plusieurs fois si local Ã©galement,
+			// on multiplie totalSize par les Ã©tapes
 			totalSize *= parameters.getSizeMultiplier();
 
 			// c'est parti
@@ -480,11 +480,11 @@ public class DeadCodeDetector {
 			if (isInterrupted()) {
 				log("Interrupted");
 			}
-			// après l'analyse on supprime les données inutiles
-			// pour économiser la mémoire même s'il y a une exception
+			// aprÃ¨s l'analyse on supprime les donnÃ©es inutiles
+			// pour Ã©conomiser la mÃ©moire mÃªme s'il y a une exception
 			result.clear();
 
-			// on supprime les répertoires temporaires
+			// on supprime les rÃ©pertoires temporaires
 			if (!tmpDirectoriesByJarOrWar.isEmpty()) {
 				log("Deleting temporary directories");
 				for (final File tmpDirectory : tmpDirectoriesByJarOrWar.values()) {
@@ -493,7 +493,7 @@ public class DeadCodeDetector {
 				tmpDirectoriesByJarOrWar.clear();
 			}
 
-			// et on termine le rapport (résumé et fermeture flux xml)
+			// et on termine le rapport (rÃ©sumÃ© et fermeture flux xml)
 			final long end = System.currentTimeMillis();
 			report.close(end - start, suspectCount, analyzedClassCount,
 					parameters.getXmlReportFile());
@@ -518,7 +518,7 @@ public class DeadCodeDetector {
 			launchAllAnalyses();
 			currentStep = Step.PUBLIC_ANALYSIS;
 			launchAllAnalyses();
-			// si mode public, rapport à la fin de l'analyse du domaine
+			// si mode public, rapport Ã  la fin de l'analyse du domaine
 			log("");
 			suspectCount += result.reportDeadCode(true);
 		}
@@ -537,7 +537,7 @@ public class DeadCodeDetector {
 					final String webInfClasses = File.separatorChar + "WEB-INF"
 							+ File.separatorChar + "classes";
 					if (new File(tmpDirectory, webInfClasses).exists()) {
-						// analyse des classes du répertoire WEB-INF/classes du war
+						// analyse des classes du rÃ©pertoire WEB-INF/classes du war
 						launchAnalyze(tmpDirectory.getPath() + webInfClasses);
 					}
 				} else {
@@ -545,7 +545,7 @@ public class DeadCodeDetector {
 					launchAnalyze(tmpDirectory.getPath());
 				}
 			} else {
-				// analyse des classes du répertoire
+				// analyse des classes du rÃ©pertoire
 				launchAnalyze(file.getPath());
 			}
 		}
@@ -565,7 +565,7 @@ public class DeadCodeDetector {
 
 	// ESCA-JAVA0139:
 	/**
-	 * Méthode exécutée pour lancer l'audit.
+	 * MÃ©thode exÃ©cutÃ©e pour lancer l'audit.
 	 * @param args String[]
 	 * @throws IOException e
 	 * @throws XMLStreamException e

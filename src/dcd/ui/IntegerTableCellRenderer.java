@@ -22,7 +22,7 @@ import java.text.NumberFormat;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * Définit un renderer pour représenter un Integer dans une JTable.
+ * DÃ©finit un renderer pour reprÃ©senter un Integer dans une JTable.
  * @author Emeric Vernat
  */
 class IntegerTableCellRenderer extends DefaultTableCellRenderer {
@@ -38,7 +38,7 @@ class IntegerTableCellRenderer extends DefaultTableCellRenderer {
 	}
 
 	/**
-	 * Cette méthode est appelée par l'affichage de la table pour définir la valeur affichée.
+	 * Cette mÃ©thode est appelÃ©e par l'affichage de la table pour dÃ©finir la valeur affichÃ©e.
 	 * @param value java.lang.Object
 	 */
 	@Override

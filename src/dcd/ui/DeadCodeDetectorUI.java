@@ -43,7 +43,7 @@ import dcd.DeadCodeDetector;
 import dcd.Parameters;
 
 /**
- * Classe principale de DCD en mode graphique avec la méthode main.
+ * Classe principale de DCD en mode graphique avec la mÃ©thode main.
  * @author evernat
  */
 public class DeadCodeDetectorUI extends JPanel {
@@ -56,8 +56,8 @@ public class DeadCodeDetectorUI extends JPanel {
 
 	/**
 	 * Constructeur du panel.
-	 * Ce constructeur peut être utilisé à la place de main
-	 * pour instancier ce panel et le placer dans une JFrame à afficher.
+	 * Ce constructeur peut Ãªtre utilisÃ© Ã  la place de main
+	 * pour instancier ce panel et le placer dans une JFrame Ã  afficher.
 	 * @param parameters Parameters
 	 */
 	public DeadCodeDetectorUI(Parameters parameters) {
@@ -99,7 +99,7 @@ public class DeadCodeDetectorUI extends JPanel {
 						JOptionPane.ERROR_MESSAGE);
 				parameters = null;
 			}
-			// instanciation après look and feel
+			// instanciation aprÃ¨s look and feel
 			final DeadCodeDetectorUI ui = new DeadCodeDetectorUI(parameters);
 			final JFrame frame = new JFrame(DeadCodeDetector.APPLICATION_NAME);
 			frame.add(ui);
@@ -157,7 +157,7 @@ public class DeadCodeDetectorUI extends JPanel {
 	}
 
 	static void setWindowOpacity(JFrame frame, float alpha) {
-		// cette méthode fonctionne à partir de Java 1.6.0_10 (update 10)
+		// cette mÃ©thode fonctionne Ã  partir de Java 1.6.0_10 (update 10)
 		try {
 			//invoke AWTUtilities.setWindowOpacity(win, alpha);
 			final Class<?> awtutil = Class.forName("com.sun.awt.AWTUtilities");
@@ -174,7 +174,7 @@ public class DeadCodeDetectorUI extends JPanel {
 	/** {@inheritDoc} */
 	@Override
 	protected void paintComponent(Graphics graphics) {
-		// Surchargée pour dessiner le fond avec gradient
+		// SurchargÃ©e pour dessiner le fond avec gradient
 		final LookAndFeel lookAndFeel = UIManager.getLookAndFeel();
 		final String lafName = lookAndFeel != null ? lookAndFeel.getName() : null;
 		if ("Substance".equals(lafName)) {
@@ -186,7 +186,7 @@ public class DeadCodeDetectorUI extends JPanel {
 		final int w = getWidth();
 		final int h = getHeight();
 
-		// l'image du gradient pourrait être mise en cache, mais ce n'est pas grave
+		// l'image du gradient pourrait Ãªtre mise en cache, mais ce n'est pas grave
 		final Paint paint = new GradientPaint(0, h / 2f, startColor, 1, h, endColor, false);
 		final Graphics2D graphix = (Graphics2D) graphics.create();
 		graphix.setPaint(paint);
@@ -195,7 +195,7 @@ public class DeadCodeDetectorUI extends JPanel {
 	}
 
 	/**
-	 * Méthode exécutée pour lancer l'IHM.
+	 * MÃ©thode exÃ©cutÃ©e pour lancer l'IHM.
 	 * @param args String[]
 	 */
 	public static void main(final String[] args) {

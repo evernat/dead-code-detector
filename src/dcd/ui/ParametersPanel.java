@@ -46,8 +46,8 @@ import javax.swing.border.Border;
 import dcd.Parameters;
 
 /**
- * Vue principale en JPanel Swing pour l'IHM (design pattern Modèle-Vue-Contrôleur).
- * Le modèle est la classe Parameters dans le package dcd.
+ * Vue principale en JPanel Swing pour l'IHM (design pattern ModÃ¨le-Vue-ContrÃ´leur).
+ * Le modÃ¨le est la classe Parameters dans le package dcd.
  * @author evernat
  */
 class ParametersPanel extends JPanel {
@@ -231,7 +231,7 @@ class ParametersPanel extends JPanel {
 		textArea.setEditable(false);
 		textArea.setFont(textArea.getFont().deriveFont(textArea.getFont().getSize2D() * 0.9f));
 		final JScrollPane scrollPane = new JScrollPane(textArea);
-		// scrollbar vertical à always pour éviter d'avoir la scrollbar horizontal
+		// scrollbar vertical Ã  always pour Ã©viter d'avoir la scrollbar horizontal
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		final JPanel scrollPanePanel = new JPanel(DcdUiHelper.createBorderLayout());
 		scrollPanePanel.setBorder(EMPTY_BORDER);

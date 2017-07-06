@@ -29,8 +29,8 @@ import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 
 /**
- * Classe héritant de JTable et affichant des tooltips pour les cellules.
- * Les classes filles définiront les implémentations particulières.
+ * Classe hÃ©ritant de JTable et affichant des tooltips pour les cellules.
+ * Les classes filles dÃ©finiront les implÃ©mentations particuliÃ¨res.
  * @author evernat
  */
 class Table extends JTable {
@@ -50,7 +50,7 @@ class Table extends JTable {
 	@Override
 	public java.awt.Component prepareRenderer(TableCellRenderer renderer, int rowIndex,
 			int vColIndex) {
-		// Surcharge pour la gestion des lignes de couleurs alternées.
+		// Surcharge pour la gestion des lignes de couleurs alternÃ©es.
 		final Component component = super.prepareRenderer(renderer, rowIndex, vColIndex);
 		if (!isRowSelected(rowIndex)) {
 			if (rowIndex % 2 == 0) {
@@ -87,7 +87,7 @@ class Table extends JTable {
 	}
 
 	/**
-	 * Renvoie le texte à la position demandée.
+	 * Renvoie le texte Ã  la position demandÃ©e.
 	 * @return String
 	 * @param row int
 	 * @param column int
