@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+ * Copyright 2008 by Emeric Vernat
+ *
+ *     This file is part of Dead Code Detector.
+ *
+ * Dead Code Detector is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Dead Code Detector is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Dead Code Detector.  If not, see <http://www.gnu.org/licenses/>.
+ */
+-->
+<project basedir="." default="all" name="DCD">
+	<!-- Initialisation des tâches -->
+	<target name="init">
+		<echo message="-- Script Ant DCD --" level="info" />
+		<echo message="Basedir: ${basedir}" level="info" />
+		<echo message="Ant file: ${ant.file}" level="info" />
+		<echo message="Ant home: ${ant.home}" level="info" />
+		<echo message="${ant.version}" level="info" />
+		<echo message="${java.runtime.name}, ${java.runtime.version}" level="info" />
+		<echo message="${os.name} ${sun.os.patch.level}, ${os.arch}/${sun.arch.data.model}" level="info" />
+		<tstamp>
+			<format property="TODAY_FR" pattern="dd MMMM yyyy HH:mm:ss" locale="fr,FR" />
+		</tstamp>
+		<echo message="${TODAY_FR}" level="info" />
+	</target>
+
+	<!-- Compilation -->
+	<target name="build" depends="init">
+		<echo message="Compilation" level="info" />
+		<mkdir dir="build" />
+		<javac debug="on" deprecation="on" encoding="Cp1252" nowarn="off" source="1.6" target="1.6" includeantruntime="false"
+			srcdir="src" destdir="build" classpath="lib/asm-4.0.jar;lib/asm-tree-4.0.jar" />
+	</target>
+
+	<!-- Nettoyage du répertoire de compilation, du jar et de la javadoc -->
+	<target name="clean" depends="init">
+		<echo message="Nettoyage du répertoire de compilation, du jar et de la javadoc" level="info" />
+		<delete dir="build" />
+		<delete file="dcd.jar" />
+		<delete dir="doc" />
+	</target>
+
+	<!-- Construction du jar -->
+	<target name="jar" depends="build">
+		<echo message="Construction du jar" level="info" />
+		<delete file="dcd.jar" />
+		<jar destfile="dcd.jar">
+			<zipfileset dir="build" />
+			<zipfileset dir="src" includes="**/*.gif" />
+			<zipfileset dir="." includes="COPYING*" />
+			<manifest>
+				<attribute name="Main-Class" value="dcd.ui.DeadCodeDetectorUI" />
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Built-Date" value="${TODAY_FR}" />
+				<section name="dcd">
+					<attribute name="Implementation-Title" value="Dead Code Detector" />
+					<attribute name="Implementation-Vendor" value="Emeric Vernat" />
+				</section>
+			</manifest>
+		</jar>
+		<!-- si taille importante, on pourrait utiliser pack200 ainsi :
+			<taskdef name="pack200" classname="com.sun.tools.apache.ant.pack200.Pack200Task" classpath="Ant/lib/Pack200Task.jar" />
+			// segmentlimit=-1 est nécessaire pour éviter pb de signature
+			<pack200 src="@{file}" destfile="@{file}.repack.jar" repack="true" segmentlimit="-1" />
+			<move file="@{file}.repack.jar" tofile="@{file}" /> -->
+
+		<!-- le certificat est autosigné selon 
+			http://java.sun.com/javase/6/docs/technotes/guides/javaws/developersguide/development.html#security -->
+		<signjar jar="dcd.jar" alias="evernat" keystore="evernat.jks" storetype="jks" storepass="evernat" />
+		<!-- storetype="pkcs12" si vrai certificat de Thawte ou VeriSign -->
+	</target>
+
+	<!-- Construction de la javadoc -->
+	<target name="javadoc" depends="init,build">
+		<echo message="Construction de la javadoc" level="info" />
+		<macrodef name="myjavadoc">
+			<attribute name="destdir" />
+			<attribute name="windowtitle" />
+			<attribute name="classpath" />
+			<element name="javadoc-elements" implicit="true" />
+			<sequential>
+				<echo message="@{windowtitle}" level="info" />
+				<delete dir="@{destdir}" />
+				<javadoc destdir="@{destdir}" windowtitle="@{windowtitle}" classpath="@{classpath}" 
+					encoding="Cp1252" charset="Cp1252" access="public" 
+					author="on" version="on" use="on" maxmemory="128m">
+					<link offline="true" href="http://java.sun.com/javase/6/docs/api/" packagelistloc="./j2se/" />
+					<doctitle>
+						<![CDATA[@{windowtitle}]]>
+					</doctitle>
+					<javadoc-elements />
+				</javadoc>
+			</sequential>
+		</macrodef>
+
+		<myjavadoc destdir="doc" windowtitle="Dead Code Detector" classpath="lib/asm-4.0.jar;lib/asm-tree-4.0.jar">
+			<packageset dir="src" />
+		</myjavadoc>
+	</target>
+
+	<!-- Construction du zip -->
+	<target name="zip" depends="jar,javadoc">
+		<echo message="Construction du zip" level="info" />
+		<delete file="dcd.zip" />
+		<zip destfile="dcd.zip">
+			<zipfileset dir="." excludes="classes/**,build/**,target/**,dcd.zip" />
+		</zip>
+	</target>
+
+	<!-- Tout (zip,clean) -->
+	<target name="all" depends="zip,clean" />
+</project>
