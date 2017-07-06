@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.java.dev.dcd</groupId>
 	<artifactId>dcd</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>2.0</version>
 	<packaging>jar</packaging>
 	<name>Dead Code Detector</name>
 	<url>https://github.com/evernat/dead-code-detector/wiki</url>
