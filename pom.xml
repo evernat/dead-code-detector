@@ -64,7 +64,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<!-- Configuration compilation -->
 			<plugin>

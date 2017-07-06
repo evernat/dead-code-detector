@@ -37,7 +37,7 @@
 		<echo message="Compilation" level="info" />
 		<mkdir dir="build" />
 		<javac debug="on" deprecation="on" encoding="UTF-8" nowarn="off" source="1.6" target="1.6" includeantruntime="false"
-			srcdir="src" destdir="build" classpath="lib/asm-4.0.jar;lib/asm-tree-4.0.jar" />
+			srcdir="src/main/java" destdir="build" classpath="lib/asm-4.0.jar;lib/asm-tree-4.0.jar" />
 	</target>
 
 	<!-- Nettoyage du répertoire de compilation, du jar -->
@@ -53,8 +53,8 @@
 		<delete file="dcd.jar" />
 		<jar destfile="dcd.jar">
 			<zipfileset dir="build" />
-			<zipfileset dir="src" includes="**/*.gif" />
-			<zipfileset dir="." includes="COPYING*" />
+			<zipfileset dir="src/main/resources" />
+			<zipfileset dir="." includes="LICENSE*" />
 			<manifest>
 				<attribute name="Main-Class" value="dcd.ui.DeadCodeDetectorUI" />
 				<attribute name="Built-By" value="${user.name}" />
