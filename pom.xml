@@ -27,8 +27,8 @@
 	</developers>
 	<licenses>
 		<license>
-			<name>LGPLv3</name>
-			<url>COPYING.LESSER</url>
+			<name>ASL</name>
+			<url>LICENSE</url>
 		</license>
 	</licenses>
 	<scm>
