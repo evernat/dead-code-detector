@@ -120,8 +120,8 @@ public class DeadCodeDetectorUI extends JPanel {
 				}
 			});
 			final Dimension dimension = frame.getToolkit().getScreenSize();
-			frame.setLocation(dimension.width / 2 - frame.getWidth() / 2, dimension.height / 2
-					- frame.getHeight() / 2);
+			frame.setLocation(dimension.width / 2 - frame.getWidth() / 2,
+					dimension.height / 2 - frame.getHeight() / 2);
 			ui.disappear();
 			frame.setVisible(true);
 			ui.appear();
@@ -200,17 +200,17 @@ public class DeadCodeDetectorUI extends JPanel {
 	 */
 	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() { // NOPMD
-					/** {@inheritDoc} */
-					@Override
-					public void run() {
-						final File propertiesFile;
-						if (args.length > 0) {
-							propertiesFile = new File(args[0]);
-						} else {
-							propertiesFile = null;
-						}
-						showFrame(propertiesFile);
-					}
-				});
+			/** {@inheritDoc} */
+			@Override
+			public void run() {
+				final File propertiesFile;
+				if (args.length > 0) {
+					propertiesFile = new File(args[0]);
+				} else {
+					propertiesFile = null;
+				}
+				showFrame(propertiesFile);
+			}
+		});
 	}
 }

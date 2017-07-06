@@ -50,7 +50,8 @@ class SelfAssignmentAnalyzer { // NOPMD
 	Set<String> analyze() { // NOPMD
 		// la complexité de cette méthode est ignorée
 		// car c'est un exemple tiré presque tel quel du guide d'asm
-		for (final Iterator<AbstractInsnNode> it = methodNode.instructions.iterator(); it.hasNext();) {
+		for (final Iterator<AbstractInsnNode> it = methodNode.instructions.iterator(); it
+				.hasNext();) {
 			final AbstractInsnNode i1 = it.next();
 			if (isALOAD0(i1)) {
 				final AbstractInsnNode i2 = getNext(it);
@@ -72,7 +73,8 @@ class SelfAssignmentAnalyzer { // NOPMD
 				final AbstractInsnNode i2 = i1.getNext();
 				if (i2 != null && LocalVariablesAnalyzer.isStore(i2.getOpcode())
 						&& ((VarInsnNode) i1).var == ((VarInsnNode) i2).var) {
-					final LocalVariableNode localVariable = getLocalVariable(((VarInsnNode) i1).var);
+					final LocalVariableNode localVariable = getLocalVariable(
+							((VarInsnNode) i1).var);
 					addSelfAssignment(localVariable.name);
 				}
 			}

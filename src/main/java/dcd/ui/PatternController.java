@@ -49,15 +49,17 @@ class PatternController implements Serializable {
 		// annulé si regexp null
 		if (regexp != null) {
 			if (regexp.isEmpty()) {
-				DcdUiHelper.handleException(new IllegalStateException(
-						"Type a regular expression to add id or cancel"), patternTable);
+				DcdUiHelper.handleException(
+						new IllegalStateException("Type a regular expression to add id or cancel"),
+						patternTable);
 				addPattern("");
 			} else {
 				try {
 					getPatternTableModel().addPattern(Pattern.compile(regexp));
 				} catch (final Exception e) {
-					DcdUiHelper.handleException(new IllegalStateException(
-							"Type a valid regular expression", e), patternTable);
+					DcdUiHelper.handleException(
+							new IllegalStateException("Type a valid regular expression", e),
+							patternTable);
 					addPattern(regexp);
 				}
 			}

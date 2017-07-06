@@ -42,9 +42,8 @@ class FileTableModel extends AbstractTableModel {
 
 	void addFiles(List<File> fileList) {
 		for (final File file : fileList) {
-			if ((file.isDirectory() || file.getName().endsWith(".jar") || file.getName().endsWith(
-					".war"))
-					&& !files.contains(file)) {
+			if ((file.isDirectory() || file.getName().endsWith(".jar")
+					|| file.getName().endsWith(".war")) && !files.contains(file)) {
 				files.add(file);
 			}
 		}

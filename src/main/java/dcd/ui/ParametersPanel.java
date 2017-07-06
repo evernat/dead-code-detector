@@ -89,8 +89,8 @@ class ParametersPanel extends JPanel {
 			privateDeadCodeCheckBox.setSelected(parameters.isPrivateDeadCode());
 			localDeadCodeCheckBox.setSelected(parameters.isLocalDeadCode());
 			initDeadCodeCheckBox.setSelected(parameters.isInitDeadCode());
-			xmlReportFileTextField.setText(parameters.getXmlReportFile() == null ? "" : parameters
-					.getXmlReportFile().getPath());
+			xmlReportFileTextField.setText(parameters.getXmlReportFile() == null ? ""
+					: parameters.getXmlReportFile().getPath());
 		}
 	}
 
@@ -130,7 +130,8 @@ class ParametersPanel extends JPanel {
 	private JPanel getNorthPanel() {
 		final JPanel parametersPanel = getParametersPanel();
 
-		final JPanel directoryButtonsPanel = new JPanel(DcdUiHelper.createGridLayout(-1, 1, 10, 10));
+		final JPanel directoryButtonsPanel = new JPanel(
+				DcdUiHelper.createGridLayout(-1, 1, 10, 10));
 		directoryButtonsPanel.setBorder(EMPTY_BORDER);
 		final JButton addDirectoryButton = createButton("Add a classes directory...",
 				"/images/add.gif", "addDirectory");
@@ -325,8 +326,8 @@ class ParametersPanel extends JPanel {
 	private void hideOrShowAdvancedPanel() {
 		final boolean visible = !advancedPanel.isVisible();
 		advancedPanel.setVisible(visible);
-		advancedButton.setIcon(DcdUiHelper.createIcon(visible ? "/images/up.gif"
-				: "/images/down.gif"));
+		advancedButton
+				.setIcon(DcdUiHelper.createIcon(visible ? "/images/up.gif" : "/images/down.gif"));
 		DcdUiHelper.packIfNotMaximized(SwingUtilities.getWindowAncestor(resultsPanel));
 	}
 
@@ -336,7 +337,8 @@ class ParametersPanel extends JPanel {
 		}
 		if (!publicDeadCodeCheckBox.isSelected() && !privateDeadCodeCheckBox.isSelected()
 				&& !localDeadCodeCheckBox.isSelected() && !initDeadCodeCheckBox.isSelected()) {
-			throw new IllegalStateException("Choose public, private, local or init dead code type.");
+			throw new IllegalStateException(
+					"Choose public, private, local or init dead code type.");
 		}
 		if (!resultsPanel.isVisible()) {
 			resultsPanel.setVisible(true);

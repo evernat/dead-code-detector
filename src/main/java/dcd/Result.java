@@ -48,8 +48,8 @@ class Result {
 	private final Map<String, String> superClassByClassMap = new HashMap<String, String>();
 	private final Map<String, Set<String>> subClassListByClassMap = new HashMap<String, Set<String>>();
 	private final Map<String, Set<String>> javaMethodListByClassMap = new HashMap<String, Set<String>>();
-	private final Set<String> javaLangObjectMethods = getJavaMethods(Type
-			.getInternalName(Object.class));
+	private final Set<String> javaLangObjectMethods = getJavaMethods(
+			Type.getInternalName(Object.class));
 	private final Report report;
 
 	/**
@@ -397,8 +397,8 @@ class Result {
 			final String asmClassName = entry.getKey();
 			final Set<String> methods = entry.getValue();
 			final Set<String> fields = fieldsByClassMap.remove(asmClassName);
-			final Set<String> descs = new LinkedHashSet<String>(methods.size()
-					+ (fields != null ? fields.size() : 0));
+			final Set<String> descs = new LinkedHashSet<String>(
+					methods.size() + (fields != null ? fields.size() : 0));
 			if (fields != null) {
 				for (final String field : fields) {
 					descs.add(DcdHelper.getFieldDescription(field));

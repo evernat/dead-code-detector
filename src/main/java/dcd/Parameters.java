@@ -78,12 +78,12 @@ public class Parameters {
 		publicDeadCode = Boolean.valueOf(properties.getProperty(PUBLIC_DEAD_CODE_KEY));
 		privateDeadCode = Boolean.valueOf(properties.getProperty(PRIVATE_DEAD_CODE_KEY))
 				|| !properties.containsKey(PUBLIC_DEAD_CODE_KEY)
-				&& !properties.containsKey(PRIVATE_DEAD_CODE_KEY);
+						&& !properties.containsKey(PRIVATE_DEAD_CODE_KEY);
 		localDeadCode = Boolean.valueOf(properties.getProperty(LOCAL_DEAD_CODE_KEY));
 		initDeadCode = Boolean.valueOf(properties.getProperty(INIT_DEAD_CODE_KEY));
 		xmlReportFile = properties.getProperty(XML_REPORT_FILE_KEY) == null
-				|| properties.getProperty(XML_REPORT_FILE_KEY).trim().isEmpty() ? null : new File(
-				properties.getProperty(XML_REPORT_FILE_KEY));
+				|| properties.getProperty(XML_REPORT_FILE_KEY).trim().isEmpty() ? null
+						: new File(properties.getProperty(XML_REPORT_FILE_KEY));
 	}
 
 	/**
@@ -111,10 +111,10 @@ public class Parameters {
 		this.privateDeadCode = privateDeadCode;
 		this.localDeadCode = localDeadCode;
 		this.initDeadCode = initDeadCode;
-		this.excludedClasses = excludedClasses != null ? excludedClasses : Collections
-				.<Pattern> emptyList();
-		this.excludedMethods = excludedMethods != null ? excludedMethods : Collections
-				.<Pattern> emptyList();
+		this.excludedClasses = excludedClasses != null ? excludedClasses
+				: Collections.<Pattern> emptyList();
+		this.excludedMethods = excludedMethods != null ? excludedMethods
+				: Collections.<Pattern> emptyList();
 	}
 
 	/**
@@ -143,7 +143,8 @@ public class Parameters {
 	public static Parameters createFromPropertiesFile(File propertiesFile) throws IOException {
 		checkPropertiesFile(propertiesFile);
 		final Properties properties = new Properties();
-		final InputStream inputStream = new BufferedInputStream(new FileInputStream(propertiesFile));
+		final InputStream inputStream = new BufferedInputStream(
+				new FileInputStream(propertiesFile));
 		try {
 			properties.load(inputStream);
 		} finally {
@@ -227,8 +228,8 @@ public class Parameters {
 			throw new IOException(propertiesFile.toString() + " does not exist");
 		}
 		if (propertiesFile.isDirectory()) {
-			throw new IOException(propertiesFile.toString()
-					+ " is a directory and not a properties file");
+			throw new IOException(
+					propertiesFile.toString() + " is a directory and not a properties file");
 		}
 	}
 
@@ -238,8 +239,8 @@ public class Parameters {
 				throw new IllegalArgumentException(directory + " does not exist");
 			}
 			if (!directory.isDirectory() && !DcdHelper.isJarOrWarFile(directory)) {
-				throw new IllegalArgumentException(directory
-						+ " is not a directory or a jar, war file");
+				throw new IllegalArgumentException(
+						directory + " is not a directory or a jar, war file");
 			}
 		}
 	}

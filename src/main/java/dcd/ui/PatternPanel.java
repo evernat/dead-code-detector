@@ -127,16 +127,16 @@ class PatternPanel extends JPanel {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() { // NOPMD
-					/** {@inheritDoc} */
-					@Override
-					public void run() {
-						final JFrame frame = new JFrame();
-						frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-						frame.add(new PatternPanel("Classes filters",
-								"Type a regular expression of classes to exclude (ex : mypackage.*)"));
-						frame.pack();
-						frame.setVisible(true);
-					}
-				});
+			/** {@inheritDoc} */
+			@Override
+			public void run() {
+				final JFrame frame = new JFrame();
+				frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+				frame.add(new PatternPanel("Classes filters",
+						"Type a regular expression of classes to exclude (ex : mypackage.*)"));
+				frame.pack();
+				frame.setVisible(true);
+			}
+		});
 	}
 }

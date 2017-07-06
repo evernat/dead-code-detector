@@ -52,14 +52,14 @@ final class DcdUiHelper {
 	static void handleException(final Exception e, final Component component) {
 		printStackTrace(e);
 		SwingUtilities.invokeLater(new Runnable() { // NOPMD
-					/** {@inheritDoc} */
-					@Override
-					public void run() {
-						final Window window = SwingUtilities.getWindowAncestor(component);
-						JOptionPane.showMessageDialog(window, e.getMessage(), "Error",
-								JOptionPane.ERROR_MESSAGE);
-					}
-				});
+			/** {@inheritDoc} */
+			@Override
+			public void run() {
+				final Window window = SwingUtilities.getWindowAncestor(component);
+				JOptionPane.showMessageDialog(window, e.getMessage(), "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		});
 	}
 
 	static void printStackTrace(final Exception e) {

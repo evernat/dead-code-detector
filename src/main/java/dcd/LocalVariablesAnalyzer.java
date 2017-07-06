@@ -64,7 +64,8 @@ class LocalVariablesAnalyzer {
 		if (localVariables.isEmpty()) {
 			return Collections.emptySet();
 		}
-		for (final Iterator<AbstractInsnNode> it = methodNode.instructions.iterator(); it.hasNext();) {
+		for (final Iterator<AbstractInsnNode> it = methodNode.instructions.iterator(); it
+				.hasNext();) {
 			analyzeInstruction(it.next());
 			if (localVariables.isEmpty()) {
 				// si toutes les variables ont été utilisées, inutile de continuer à lire les instructions
@@ -83,8 +84,8 @@ class LocalVariablesAnalyzer {
 			// alors on cherche les constantes de variables (et uniquement celles-ci) dans toutes ses méthodes
 			// (si ce n'est pas une constante, alors elle serait déjà détectée utilisée dans la méthode)
 			for (final MethodNode innerMethodNode : (List<MethodNode>) innerClass.methods) {
-				for (final Iterator<AbstractInsnNode> it = innerMethodNode.instructions.iterator(); it
-						.hasNext();) {
+				for (final Iterator<AbstractInsnNode> it = innerMethodNode.instructions
+						.iterator(); it.hasNext();) {
 					// CHECKSTYLE:OFF
 					final AbstractInsnNode instruction = it.next();
 					// CHECKSTYLE:ON
@@ -105,9 +106,8 @@ class LocalVariablesAnalyzer {
 			return Collections.emptySet();
 		}
 		final int oneIfThisExists = (methodNode.access & Opcodes.ACC_STATIC) != 0 ? 0 : 1;
-		if (methodNode.localVariables.size() <= oneIfThisExists
-				|| methodNode.localVariables.size() <= Type.getArgumentTypes(methodNode.desc).length
-						+ oneIfThisExists) {
+		if (methodNode.localVariables.size() <= oneIfThisExists || methodNode.localVariables
+				.size() <= Type.getArgumentTypes(methodNode.desc).length + oneIfThisExists) {
 			return Collections.emptySet();
 		}
 		final Set<LocalVariableNode> variables = new LinkedHashSet<LocalVariableNode>(
@@ -133,7 +133,8 @@ class LocalVariablesAnalyzer {
 			final String type = tryCatchBlock.type;
 			// type est null si finally
 			if (type != null) {
-				for (final Iterator<LocalVariableNode> it = localVariables.iterator(); it.hasNext();) {
+				for (final Iterator<LocalVariableNode> it = localVariables.iterator(); it
+						.hasNext();) {
 					final LocalVariableNode localVariable = it.next();
 					final Type typeLocalVariable = Type.getType(localVariable.desc);
 					if (typeLocalVariable.getSort() == Type.OBJECT
@@ -236,6 +237,7 @@ class LocalVariablesAnalyzer {
 		final int opcode = previousInstruction.getOpcode();
 		return (opcode >= Opcodes.ACONST_NULL && opcode <= Opcodes.DCONST_1
 				|| opcode == Opcodes.SIPUSH || opcode == Opcodes.BIPUSH)
-				&& (previousInstruction instanceof InsnNode || previousInstruction instanceof IntInsnNode);
+				&& (previousInstruction instanceof InsnNode
+						|| previousInstruction instanceof IntInsnNode);
 	}
 }

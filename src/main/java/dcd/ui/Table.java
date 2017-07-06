@@ -99,8 +99,8 @@ class Table extends JTable {
 		if (value != null) {
 			final int columnIndex = convertColumnIndexToView(column);
 			final TableCellRenderer renderer = getCellRenderer(row, columnIndex);
-			final java.awt.Component rendererComponent = renderer.getTableCellRendererComponent(
-					this, value, false, false, row, columnIndex);
+			final java.awt.Component rendererComponent = renderer
+					.getTableCellRendererComponent(this, value, false, false, row, columnIndex);
 			text = getTextFrom(value, rendererComponent);
 			if (text == null) {
 				text = "";

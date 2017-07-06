@@ -159,8 +159,8 @@ final class DcdHelper {
 						throw new IOException(tmpFile.getParentFile() + " can't be created");
 					}
 					final InputStream input = zipFile.getInputStream(zipEntry);
-					final OutputStream output = new BufferedOutputStream(new FileOutputStream(
-							tmpFile), (int) zipEntry.getSize());
+					final OutputStream output = new BufferedOutputStream(
+							new FileOutputStream(tmpFile), (int) zipEntry.getSize());
 					try {
 						copy(buffer, input, output);
 					} finally {

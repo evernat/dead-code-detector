@@ -66,8 +66,8 @@ class Report {
 
 			xmlStreamWriter.writeStartDocument(); // writes XML declaration
 			xmlStreamWriter.writeCharacters(XML_END_OF_LINE);
-			xmlStreamWriter.writeComment(' ' + DcdHelper.APPLICATION_NAME
-					+ ", http://dcd.dev.java.net ");
+			xmlStreamWriter
+					.writeComment(' ' + DcdHelper.APPLICATION_NAME + ", http://dcd.dev.java.net ");
 			xmlStreamWriter.writeCharacters(XML_END_OF_LINE);
 			final String root = "dcd";
 			//        String doctype =
@@ -102,8 +102,8 @@ class Report {
 				try {
 					xmlStreamWriter.writeCharacters(XML_INDENT);
 					xmlStreamWriter.writeStartElement("summary");
-					xmlStreamWriter
-							.writeAttribute("durationMillis", String.valueOf(durationMillis));
+					xmlStreamWriter.writeAttribute("durationMillis",
+							String.valueOf(durationMillis));
 					xmlStreamWriter.writeAttribute("suspectCount", String.valueOf(suspectCount));
 					xmlStreamWriter.writeAttribute("analyzedClassCount",
 							String.valueOf(analyzedClassCount));
@@ -185,8 +185,8 @@ class Report {
 	}
 
 	private static String getMethodDescription(MethodNode methodNode) {
-		return DcdHelper.getMethodDescription(DcdHelper.getMethodKey(methodNode.name,
-				methodNode.desc));
+		return DcdHelper
+				.getMethodDescription(DcdHelper.getMethodKey(methodNode.name, methodNode.desc));
 	}
 
 	private static void log(String msg) {

@@ -147,8 +147,8 @@ public class DeadCodeDetector {
 		}
 	}
 
-	private void analyzeDirectory(String dir, String packageName) throws IOException,
-			XMLStreamException {
+	private void analyzeDirectory(String dir, String packageName)
+			throws IOException, XMLStreamException {
 		final Set<String> classNameList = listClassesAndAnalyzeSubDirectories(dir, packageName);
 
 		switch (currentStep) {
@@ -226,8 +226,8 @@ public class DeadCodeDetector {
 			if (isInterrupted()) {
 				break;
 			}
-			final String name = packageName != null ? packageName + '.' + file.getName() : file
-					.getName();
+			final String name = packageName != null ? packageName + '.' + file.getName()
+					: file.getName();
 			if (file.isDirectory() && file.getName().indexOf('.') == -1) {
 				analyzeDirectory(dir, name);
 			} else if (file.getName().endsWith(".class")) {
@@ -246,8 +246,8 @@ public class DeadCodeDetector {
 	}
 
 	private void addProgressSize(String dir, String packageName) {
-		final File packageFile = new File(dir + File.separatorChar
-				+ packageName.replace('.', File.separatorChar));
+		final File packageFile = new File(
+				dir + File.separatorChar + packageName.replace('.', File.separatorChar));
 		addProgressSize(packageFile);
 	}
 
@@ -280,8 +280,8 @@ public class DeadCodeDetector {
 			final Set<String> fields = new LinkedHashSet<String>();
 			final ClassVisitor classVisitor = Factory.createCalledClassVisitor(methods, fields,
 					isPublicIndexationStep());
-			classReader.accept(classVisitor, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG
-					| ClassReader.SKIP_FRAMES);
+			classReader.accept(classVisitor,
+					ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 
 			if (isPublicIndexationStep() && !methods.isEmpty()) {
 				result.excludeJavaMethods(classReader, methods);
@@ -322,8 +322,8 @@ public class DeadCodeDetector {
 	}
 
 	private void analyzeClasses(String dir, Set<String> classesToVisit) throws IOException {
-		final ClassVisitor classVisitor = Factory.createCallersClassVisitor(result
-				.createCallersMethodVisitor());
+		final ClassVisitor classVisitor = Factory
+				.createCallersClassVisitor(result.createCallersMethodVisitor());
 		for (final String className : classesToVisit) {
 			if (isInterrupted()) {
 				break;
@@ -342,8 +342,8 @@ public class DeadCodeDetector {
 				break;
 			}
 			final ClassReader classReader = createClassReader(dir, className);
-			classReader.accept(uselessInitClassVisitor, ClassReader.SKIP_DEBUG
-					| ClassReader.SKIP_FRAMES);
+			classReader.accept(uselessInitClassVisitor,
+					ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 			final Set<String> positiveFields = uselessInitClassVisitor.positiveFields;
 			if (!positiveFields.isEmpty()) {
 				// les classes *ServiceLocator générées par Apache Axis
@@ -461,12 +461,14 @@ public class DeadCodeDetector {
 
 					log("Uncompressing " + file.getPath() + " ...");
 					final File tmpDirectory = DcdHelper.unzipIntoTempDirectory(file);
-					totalSize += getProgressListener() != null ? DcdHelper.getClassTotalSize(
-							tmpDirectory, true) : 0;
+					totalSize += getProgressListener() != null
+							? DcdHelper.getClassTotalSize(tmpDirectory, true)
+							: 0;
 					tmpDirectoriesByJarOrWar.put(file, tmpDirectory);
 				} else {
-					totalSize += getProgressListener() != null ? DcdHelper.getClassTotalSize(file,
-							true) : 0;
+					totalSize += getProgressListener() != null
+							? DcdHelper.getClassTotalSize(file, true)
+							: 0;
 				}
 			}
 			// les classes étant analysées à chaque étape (2 fois si mode public ou private),
@@ -534,8 +536,8 @@ public class DeadCodeDetector {
 				// analyse du fichier jar ou war
 				final File tmpDirectory = tmpDirectoriesByJarOrWar.get(file);
 				if (file.getName().endsWith(".war")) {
-					final String webInfClasses = File.separatorChar + "WEB-INF"
-							+ File.separatorChar + "classes";
+					final String webInfClasses = File.separatorChar + "WEB-INF" + File.separatorChar
+							+ "classes";
 					if (new File(tmpDirectory, webInfClasses).exists()) {
 						// analyse des classes du répertoire WEB-INF/classes du war
 						launchAnalyze(tmpDirectory.getPath() + webInfClasses);

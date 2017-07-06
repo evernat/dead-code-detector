@@ -39,7 +39,8 @@ class StringToStringAnalyzer {
 
 	@SuppressWarnings("unchecked")
 	boolean analyze() {
-		for (final Iterator<AbstractInsnNode> it = methodNode.instructions.iterator(); it.hasNext();) {
+		for (final Iterator<AbstractInsnNode> it = methodNode.instructions.iterator(); it
+				.hasNext();) {
 			//CHECKSTYLE:OFF
 			final AbstractInsnNode instruction = it.next();
 			//CHECKSTYLE:ON

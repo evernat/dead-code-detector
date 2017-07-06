@@ -78,14 +78,14 @@ class ParametersController implements ProgressListener, Serializable {
 
 		private void append(final String string) {
 			SwingUtilities.invokeLater(new Runnable() { // NOPMD
-						/** {@inheritDoc} */
-						@Override
-						public void run() {
-							textArea.append(string);
-							// Make sure the last line is always visible
-							textArea.setCaretPosition(textArea.getDocument().getLength());
-						}
-					});
+				/** {@inheritDoc} */
+				@Override
+				public void run() {
+					textArea.append(string);
+					// Make sure the last line is always visible
+					textArea.setCaretPosition(textArea.getDocument().getLength());
+				}
+			});
 		}
 	}
 
@@ -108,7 +108,8 @@ class ParametersController implements ProgressListener, Serializable {
 	void actionAddDirectory() {
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		fileChooser.setFileFilter(fileChooser.getAcceptAllFileFilter());
-		final boolean ok = fileChooser.showDialog(fileTable, "Add directory(ies)") == JFileChooser.APPROVE_OPTION;
+		final boolean ok = fileChooser.showDialog(fileTable,
+				"Add directory(ies)") == JFileChooser.APPROVE_OPTION;
 		if (ok) {
 			getFileTableModel().addFiles(Arrays.asList(fileChooser.getSelectedFiles()));
 		}
@@ -120,7 +121,8 @@ class ParametersController implements ProgressListener, Serializable {
 				"Jar or war files", "jar", "war");
 		fileChooser.setFileFilter(jarOrWarFileFilter);
 		try {
-			final boolean ok = fileChooser.showDialog(fileTable, "Add jar or war file(s)") == JFileChooser.APPROVE_OPTION;
+			final boolean ok = fileChooser.showDialog(fileTable,
+					"Add jar or war file(s)") == JFileChooser.APPROVE_OPTION;
 			if (ok) {
 				getFileTableModel().addFiles(Arrays.asList(fileChooser.getSelectedFiles()));
 			}
@@ -161,11 +163,11 @@ class ParametersController implements ProgressListener, Serializable {
 				} finally {
 					thread = null;
 					SwingUtilities.invokeLater(new Runnable() { // NOPMD
-								@Override
-								public void run() {
-									progressBar.setVisible(false);
-								}
-							});
+						@Override
+						public void run() {
+							progressBar.setVisible(false);
+						}
+					});
 				}
 			}
 		};
@@ -177,15 +179,15 @@ class ParametersController implements ProgressListener, Serializable {
 	@Override
 	public void onProgress(final int percentOfProgress) {
 		SwingUtilities.invokeLater(new Runnable() { // NOPMD
-					/** {@inheritDoc} */
-					@Override
-					public void run() {
-						progressBar.setValue(percentOfProgress);
-						if (progressBar.isStringPainted()) {
-							progressBar.setString(percentOfProgress + " %");
-						}
-					}
-				});
+			/** {@inheritDoc} */
+			@Override
+			public void run() {
+				progressBar.setValue(percentOfProgress);
+				if (progressBar.isStringPainted()) {
+					progressBar.setString(percentOfProgress + " %");
+				}
+			}
+		});
 	}
 
 	void actionCancel() {
@@ -207,8 +209,8 @@ class ParametersController implements ProgressListener, Serializable {
 
 	void actionCopy() {
 		final StringSelection stringSelection = new StringSelection(textArea.getText());
-		Toolkit.getDefaultToolkit().getSystemClipboard()
-				.setContents(stringSelection, stringSelection);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection,
+				stringSelection);
 	}
 
 	void actionClear() {

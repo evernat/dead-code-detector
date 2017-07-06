@@ -74,10 +74,9 @@ class CalledClassVisitor extends ClassVisitor {
 		// si mode private, on filtre public et abstract/synthétic,
 		// si mode public, on filtre private, abstract/synthétic
 		//    et ce qui n'est pas non plus public ou protected (car package-private n'a pas d'opcode)
-		return !publicIndexation
-				&& (asmAccess & OPCODE_PUBLIC_METHOD_FILTERED) != 0
-				|| publicIndexation
-				&& ((asmAccess & OPCODE_PRIVATE_METHOD_FILTERED) != 0 || (asmAccess & OPCODE_PUBLIC_METHOD) == 0);
+		return !publicIndexation && (asmAccess & OPCODE_PUBLIC_METHOD_FILTERED) != 0
+				|| publicIndexation && ((asmAccess & OPCODE_PRIVATE_METHOD_FILTERED) != 0
+						|| (asmAccess & OPCODE_PUBLIC_METHOD) == 0);
 	}
 
 	private boolean isDefaultConstructorFiltered(int access, String name, String desc) {
@@ -92,8 +91,9 @@ class CalledClassVisitor extends ClassVisitor {
 
 	private boolean isGetter(String name, String desc) {
 		return name.startsWith("get") && desc.startsWith("()")
-				&& Type.getReturnType(desc) != Type.VOID_TYPE || name.startsWith("is")
-				&& desc.startsWith("()") && Type.getReturnType(desc) == Type.BOOLEAN_TYPE;
+				&& Type.getReturnType(desc) != Type.VOID_TYPE
+				|| name.startsWith("is") && desc.startsWith("()")
+						&& Type.getReturnType(desc) == Type.BOOLEAN_TYPE;
 	}
 
 	private boolean isSetter(String name, String desc) {
@@ -135,7 +135,8 @@ class CalledClassVisitor extends ClassVisitor {
 		// - ou le constructeur a été généré par le compilateur
 		if (methods != null && !isMethodFiltered(access)
 				&& !isDefaultConstructorFiltered(access, name, desc)
-				&& !isPublicAccessorFiltered(access, name, desc) && !IGNORED_METHODS.contains(name)) {
+				&& !isPublicAccessorFiltered(access, name, desc)
+				&& !IGNORED_METHODS.contains(name)) {
 			methods.add(DcdHelper.getMethodKey(name, desc));
 		}
 		return null;
