@@ -63,7 +63,8 @@ class Result {
 
 		/** {@inheritDoc} */
 		@Override
-		public void visitMethodInsn(int opcode, String owner, String name, String desc) {
+		public void visitMethodInsn(int opcode, String owner, String name, String desc,
+				boolean itf) {
 			// les classes java et javax ne sont pas auditées
 			if (!DcdHelper.isJavaClass(owner)) {
 				//log("\t" + owner + " " + name + " " + desc);

@@ -67,7 +67,8 @@ class UselessInitClassVisitor extends ClassVisitor {
 
 		/** {@inheritDoc} */
 		@Override
-		public void visitMethodInsn(int opcode, String owner, String name, String desc) {
+		public void visitMethodInsn(int opcode, String owner, String name, String desc,
+				boolean itf) {
 			lastInstructionIsInitConstant = false;
 		}
 
