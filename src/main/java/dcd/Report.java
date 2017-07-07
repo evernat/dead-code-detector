@@ -140,7 +140,7 @@ class Report {
 
 	void reportDeadLocalVariables(String className, MethodNode methodNode,
 			Set<LocalVariableNode> localVariables) throws XMLStreamException {
-		final Set<String> names = new LinkedHashSet<String>(localVariables.size());
+		final Set<String> names = new LinkedHashSet<>(localVariables.size());
 		for (final LocalVariableNode localVariable : localVariables) {
 			names.add(localVariable.name);
 		}

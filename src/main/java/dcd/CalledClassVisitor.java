@@ -52,7 +52,7 @@ class CalledClassVisitor extends ClassVisitor {
 	// getPort et setEndpointAddress pour les services web
 	// (getPort pourrait être évité avec jaxrpc dans classpath et setEndpointAddress pour axis)
 	private static final Set<String> IGNORED_METHODS = Collections
-			.unmodifiableSet(new HashSet<String>(Arrays.asList(new String[] { "<clinit>", "main",
+			.unmodifiableSet(new HashSet<>(Arrays.asList(new String[] { "<clinit>", "main",
 					"readResolve", "readObject", "readExternal", "writeObject", "writeExternal",
 					"writeReplace", "values", "valueOf", "getPort", "setEndpointAddress", })));
 	private Set<String> methods;

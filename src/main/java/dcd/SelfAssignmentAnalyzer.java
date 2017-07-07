@@ -87,7 +87,7 @@ class SelfAssignmentAnalyzer { // NOPMD
 
 	private void addSelfAssignment(String selfAssignment) {
 		if (selfAssignments == null) {
-			selfAssignments = new HashSet<String>(1);
+			selfAssignments = new HashSet<>(1);
 		}
 		selfAssignments.add(selfAssignment);
 	}

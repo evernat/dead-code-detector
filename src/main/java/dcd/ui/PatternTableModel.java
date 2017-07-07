@@ -31,7 +31,7 @@ class PatternTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
-	private final List<Pattern> patterns = new ArrayList<Pattern>();
+	private final List<Pattern> patterns = new ArrayList<>();
 	private final String tableHeader;
 
 	PatternTableModel(String tableHeader) {

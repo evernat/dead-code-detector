@@ -46,7 +46,7 @@ public class DeadCodeDetector {
 	 */
 	public static final String APPLICATION_NAME = DcdHelper.APPLICATION_NAME;
 	private final Parameters parameters;
-	private final Map<File, File> tmpDirectoriesByJarOrWar = new HashMap<File, File>();
+	private final Map<File, File> tmpDirectoriesByJarOrWar = new HashMap<>();
 	private final Report report;
 	private final Result result;
 	private int suspectCount;
@@ -215,7 +215,7 @@ public class DeadCodeDetector {
 
 	private Set<String> listClassesAndAnalyzeSubDirectories(String dir, String packageName)
 			throws IOException, XMLStreamException {
-		final Set<String> classNameList = new LinkedHashSet<String>();
+		final Set<String> classNameList = new LinkedHashSet<>();
 		String directory;
 		if (packageName == null) {
 			directory = dir;
@@ -276,8 +276,8 @@ public class DeadCodeDetector {
 			if (parameters.isClassExcluded(className)) {
 				continue;
 			}
-			final Set<String> methods = new LinkedHashSet<String>();
-			final Set<String> fields = new LinkedHashSet<String>();
+			final Set<String> methods = new LinkedHashSet<>();
+			final Set<String> fields = new LinkedHashSet<>();
 			final ClassVisitor classVisitor = Factory.createCalledClassVisitor(methods, fields,
 					isPublicIndexationStep());
 			classReader.accept(classVisitor,

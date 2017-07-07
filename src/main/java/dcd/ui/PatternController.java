@@ -75,7 +75,7 @@ class PatternController implements Serializable {
 		if (selectedRows.length == 0) {
 			throw new IllegalStateException("Select a filter to remove.");
 		}
-		final List<Pattern> tmp = new ArrayList<Pattern>(selectedRows.length);
+		final List<Pattern> tmp = new ArrayList<>(selectedRows.length);
 		for (final int row : selectedRows) {
 			tmp.add(patterns.get(patternTable.convertRowIndexToModel(row)));
 		}

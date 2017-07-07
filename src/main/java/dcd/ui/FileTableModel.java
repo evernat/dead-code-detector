@@ -38,7 +38,7 @@ class FileTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
-	private final List<File> files = new ArrayList<File>();
+	private final List<File> files = new ArrayList<>();
 
 	void addFiles(List<File> fileList) {
 		for (final File file : fileList) {

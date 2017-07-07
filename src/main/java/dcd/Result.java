@@ -43,11 +43,11 @@ class Result {
 	// ici, on utilise des Set, ordonnés ou non, car les contenus sont uniques et surtout
 	// car l'utilisation de (Linked)HashSet est ici légèrement plus rapide que ArrayList
 	// (Implementation Patterns p108 à 111)
-	private final Map<String, Set<String>> methodsByClassMap = new HashMap<String, Set<String>>();
-	private final Map<String, Set<String>> fieldsByClassMap = new HashMap<String, Set<String>>();
-	private final Map<String, String> superClassByClassMap = new HashMap<String, String>();
-	private final Map<String, Set<String>> subClassListByClassMap = new HashMap<String, Set<String>>();
-	private final Map<String, Set<String>> javaMethodListByClassMap = new HashMap<String, Set<String>>();
+	private final Map<String, Set<String>> methodsByClassMap = new HashMap<>();
+	private final Map<String, Set<String>> fieldsByClassMap = new HashMap<>();
+	private final Map<String, String> superClassByClassMap = new HashMap<>();
+	private final Map<String, Set<String>> subClassListByClassMap = new HashMap<>();
+	private final Map<String, Set<String>> javaMethodListByClassMap = new HashMap<>();
 	private final Set<String> javaLangObjectMethods = getJavaMethods(
 			Type.getInternalName(Object.class));
 	private final Report report;
@@ -243,7 +243,7 @@ class Result {
 	void registerSubClass(String asmSuperClassName, String asmClassName) {
 		Set<String> subClassList = this.subClassListByClassMap.get(asmSuperClassName);
 		if (subClassList == null) {
-			subClassList = new HashSet<String>(1);
+			subClassList = new HashSet<>(1);
 			this.subClassListByClassMap.put(asmSuperClassName, subClassList);
 		}
 		subClassList.add(asmClassName);
@@ -254,9 +254,9 @@ class Result {
 		if (subClassList == null) {
 			return Collections.emptySet();
 		}
-		final Set<String> allSubClasses = new HashSet<String>(subClassList);
+		final Set<String> allSubClasses = new HashSet<>(subClassList);
 		while (!subClassList.isEmpty()) {
-			final Set<String> subClasses = new HashSet<String>();
+			final Set<String> subClasses = new HashSet<>();
 			for (final String subClass : subClassList) {
 				final Set<String> subSubClassList = subClassListByClassMap.get(subClass);
 				if (subSubClassList != null) {
@@ -392,12 +392,12 @@ class Result {
 	int reportDeadCode(boolean publicDeadCode) throws XMLStreamException {
 		int suspects = 0;
 		// TreeMap pour ordre d'affichage alphabétique par classe
-		for (final Map.Entry<String, Set<String>> entry : new TreeMap<String, Set<String>>(
+		for (final Map.Entry<String, Set<String>> entry : new TreeMap<>(
 				methodsByClassMap).entrySet()) {
 			final String asmClassName = entry.getKey();
 			final Set<String> methods = entry.getValue();
 			final Set<String> fields = fieldsByClassMap.remove(asmClassName);
-			final Set<String> descs = new LinkedHashSet<String>(
+			final Set<String> descs = new LinkedHashSet<>(
 					methods.size() + (fields != null ? fields.size() : 0));
 			if (fields != null) {
 				for (final String field : fields) {
@@ -411,11 +411,11 @@ class Result {
 			report.reportDeadCodeSuspects(publicDeadCode, asmClassName, descs);
 			suspects += methods.size();
 		}
-		for (final Map.Entry<String, Set<String>> entry : new TreeMap<String, Set<String>>(
+		for (final Map.Entry<String, Set<String>> entry : new TreeMap<>(
 				fieldsByClassMap).entrySet()) {
 			final String asmClassName = entry.getKey();
 			final Set<String> fields = entry.getValue();
-			final Set<String> descs = new LinkedHashSet<String>(fields.size());
+			final Set<String> descs = new LinkedHashSet<>(fields.size());
 			for (final String field : fields) {
 				descs.add(DcdHelper.getFieldDescription(field));
 			}

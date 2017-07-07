@@ -33,8 +33,8 @@ import org.objectweb.asm.Opcodes;
  * @author evernat
  */
 class UselessInitClassVisitor extends ClassVisitor {
-	final Set<String> possibleFields = new LinkedHashSet<String>();
-	final Set<String> positiveFields = new LinkedHashSet<String>();
+	final Set<String> possibleFields = new LinkedHashSet<>();
+	final Set<String> positiveFields = new LinkedHashSet<>();
 	String className;
 	boolean lastInstructionIsInitConstant;
 	private final UselessInitMethodVisitor methodVisitor = new UselessInitMethodVisitor();

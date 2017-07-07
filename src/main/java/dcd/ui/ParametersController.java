@@ -141,7 +141,7 @@ class ParametersController implements ProgressListener, Serializable {
 		if (selectedRows.length == 0) {
 			throw new IllegalStateException("Select a directory or file to remove.");
 		}
-		final List<File> tmp = new ArrayList<File>(selectedRows.length);
+		final List<File> tmp = new ArrayList<>(selectedRows.length);
 		for (final int row : selectedRows) {
 			tmp.add(files.get(fileTable.convertRowIndexToModel(row)));
 		}

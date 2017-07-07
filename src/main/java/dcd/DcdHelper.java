@@ -70,7 +70,7 @@ final class DcdHelper {
 			log(msg);
 			return Collections.emptySet();
 		}
-		final Set<Class<?>> classes = new HashSet<Class<?>>();
+		final Set<Class<?>> classes = new HashSet<>();
 		while (clazz != null) {
 			classes.add(clazz);
 			if ((clazz.getModifiers() & Modifier.ABSTRACT) != 0) {
@@ -81,7 +81,7 @@ final class DcdHelper {
 			}
 			clazz = clazz.getSuperclass();
 		}
-		final Set<String> methods = new HashSet<String>();
+		final Set<String> methods = new HashSet<>();
 		for (final Class<?> clazz2 : classes) {
 			for (final Method method : clazz2.getDeclaredMethods()) {
 				if ((method.getModifiers() & VISIBILITY_PUBLIC_OR_PROTECTED) != 0) {

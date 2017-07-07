@@ -63,7 +63,7 @@ public class Parameters {
 	 */
 	public Parameters(Properties properties) {
 		super();
-		directories = new ArrayList<File>();
+		directories = new ArrayList<>();
 		if (properties.containsKey(DIRECTORIES_KEY)) {
 			for (final String s : properties.getProperty(DIRECTORIES_KEY).split(SEPARATORS)) {
 				directories.add(new File(s));
@@ -214,7 +214,7 @@ public class Parameters {
 	}
 
 	private static List<Pattern> extractPatterns(Properties properties, String string) {
-		final List<Pattern> result = new ArrayList<Pattern>();
+		final List<Pattern> result = new ArrayList<>();
 		if (properties.containsKey(string) && !properties.getProperty(string).isEmpty()) {
 			for (final String s : properties.getProperty(string).split(SEPARATORS)) {
 				result.add(Pattern.compile(s.replace('$', '.')));
