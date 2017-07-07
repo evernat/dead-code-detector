@@ -392,8 +392,8 @@ class Result {
 	int reportDeadCode(boolean publicDeadCode) throws XMLStreamException {
 		int suspects = 0;
 		// TreeMap pour ordre d'affichage alphabétique par classe
-		for (final Map.Entry<String, Set<String>> entry : new TreeMap<>(
-				methodsByClassMap).entrySet()) {
+		for (final Map.Entry<String, Set<String>> entry : new TreeMap<>(methodsByClassMap)
+				.entrySet()) {
 			final String asmClassName = entry.getKey();
 			final Set<String> methods = entry.getValue();
 			final Set<String> fields = fieldsByClassMap.remove(asmClassName);
@@ -411,8 +411,8 @@ class Result {
 			report.reportDeadCodeSuspects(publicDeadCode, asmClassName, descs);
 			suspects += methods.size();
 		}
-		for (final Map.Entry<String, Set<String>> entry : new TreeMap<>(
-				fieldsByClassMap).entrySet()) {
+		for (final Map.Entry<String, Set<String>> entry : new TreeMap<>(fieldsByClassMap)
+				.entrySet()) {
 			final String asmClassName = entry.getKey();
 			final Set<String> fields = entry.getValue();
 			final Set<String> descs = new LinkedHashSet<>(fields.size());

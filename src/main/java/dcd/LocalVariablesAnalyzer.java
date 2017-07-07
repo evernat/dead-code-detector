@@ -110,8 +110,7 @@ class LocalVariablesAnalyzer {
 				.size() <= Type.getArgumentTypes(methodNode.desc).length + oneIfThisExists) {
 			return Collections.emptySet();
 		}
-		final Set<LocalVariableNode> variables = new LinkedHashSet<>(
-				methodNode.localVariables);
+		final Set<LocalVariableNode> variables = new LinkedHashSet<>(methodNode.localVariables);
 		// on ignore les variables locales "this" et celles des paramètres
 		// (attention les variables ne sont pas forcément dans l'ordre des index, en eclipse 3.1 ou 3.2 ?)
 		final int nbParameters = Type.getArgumentTypes(methodNode.desc).length + oneIfThisExists;
