@@ -186,7 +186,7 @@ final class DcdHelper {
 
 	static long getClassTotalSize(File directory, boolean recursive) {
 		long result = 0;
-		for (final File file : directory.listFiles()) {
+		for (final File file : listFiles(directory)) {
 			if (recursive && file.isDirectory() && file.getName().indexOf('.') == -1) {
 				result += getClassTotalSize(file, recursive);
 			} else if (file.getName().endsWith(".class")) {
@@ -197,7 +197,7 @@ final class DcdHelper {
 	}
 
 	static void rmdir(File directory) {
-		for (final File file : directory.listFiles()) {
+		for (final File file : listFiles(directory)) {
 			if (file.isDirectory()) {
 				rmdir(file);
 			} else if (!file.delete()) {
@@ -207,6 +207,14 @@ final class DcdHelper {
 		if (!directory.delete()) {
 			directory.deleteOnExit();
 		}
+	}
+
+	static File[] listFiles(File directory) {
+		final File[] files = directory.listFiles();
+		if (files == null) {
+			return new File[] {};
+		}
+		return files;
 	}
 
 	static boolean isJarOrWarFile(File file) {

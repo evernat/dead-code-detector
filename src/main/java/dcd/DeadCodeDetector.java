@@ -222,7 +222,7 @@ public class DeadCodeDetector {
 		} else {
 			directory = dir + File.separatorChar + packageName.replace('.', File.separatorChar);
 		}
-		for (final File file : new File(directory).listFiles()) {
+		for (final File file : DcdHelper.listFiles(new File(directory))) {
 			if (isInterrupted()) {
 				break;
 			}

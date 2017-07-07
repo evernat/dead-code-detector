@@ -89,6 +89,7 @@ class ParametersController implements ProgressListener, Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	ParametersController(FileTable fileTable, JTextArea textArea, JProgressBar progressBar) {
 		super();
 		this.fileTable = fileTable;
