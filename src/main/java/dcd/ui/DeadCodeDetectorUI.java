@@ -69,9 +69,9 @@ public class DeadCodeDetectorUI extends JPanel {
 
 	static void showFrame(final File propertiesFile) {
 		try {
-			if (System.getProperty("java.version").compareTo("1.6") < 0) {
+			if (System.getProperty("java.version").compareTo("1.7") < 0) {
 				throw new IllegalStateException(
-						"You must use a JRE version >= 1.6. Download it from http://java.com");
+						"You must use a JRE version >= 1.7. Download it from http://java.com");
 			}
 			try {
 				Class.forName("org.objectweb.asm.ClassReader");
