@@ -1,8 +1,8 @@
 Dead Code Detector (for Java applications)
 ==========================================
 
-If you are a developer or a tech lead, Dead Code Detector (DCD) simply finds never used code in your Java/JEE applications.
-Deleting dead code helps to reduce cost of maintenance and to improve quality of code (http://en.wikipedia.org/wiki/Unreachable_code),
+If you are a developer or a tech lead, Dead Code Detector (DCD) simply finds [never used code](http://en.wikipedia.org/wiki/Unreachable_code) in your Java/JEE applications.
+Deleting dead code helps to reduce cost of maintenance and to improve quality of code,
 and as a side effect it improves code coverage metrics of tests by deleting code that can't be tested.
 
 Provide a directory of compiled classes, a jar or a war file in the UI and DCD lists suspects of dead code. Dead code found can be private, package-private and even protected or public.
