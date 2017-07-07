@@ -127,8 +127,8 @@
 				<version>3.8</version>
 				<configuration>
 					<enableRulesSummary>false</enableRulesSummary>
-					<source>1.6</source>
-					<targetJdk>1.6</targetJdk>
+					<source>1.7</source>
+					<targetJdk>1.7</targetJdk>
 					<linkXref>false</linkXref>
 					<minimumPriority>4</minimumPriority>
 					<minimumTokens>100</minimumTokens>
