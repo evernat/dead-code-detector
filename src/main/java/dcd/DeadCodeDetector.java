@@ -60,7 +60,7 @@ public class DeadCodeDetector {
 	/**
 	 * Enumération des différentes étapes possibles.
 	 */
-	private static enum Step {
+	private enum Step {
 		/**
 		 * Etape 0 : analyse des initialisations inutiles.
 		 */
@@ -84,7 +84,7 @@ public class DeadCodeDetector {
 
 		private final String desc;
 
-		private Step(String desc) {
+		Step(String desc) {
 			this.desc = desc;
 		}
 
@@ -216,7 +216,7 @@ public class DeadCodeDetector {
 	private Set<String> listClassesAndAnalyzeSubDirectories(String dir, String packageName)
 			throws IOException, XMLStreamException {
 		final Set<String> classNameList = new LinkedHashSet<>();
-		String directory;
+		final String directory;
 		if (packageName == null) {
 			directory = dir;
 		} else {
