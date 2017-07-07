@@ -104,17 +104,13 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-		</plugins>
-	</build>
-	<reporting>
-		<plugins>
 			<!-- Vérification des règles de codage -->
 			<plugin>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.17</version>
 				<configuration>
 					<enableRSS>false</enableRSS>
-					<configLocation>${basedir}/.checkstyle.xml</configLocation>
+					<configLocation>${project.basedir}/.checkstyle.xml</configLocation>
 					<linkXRef>false</linkXRef>
 				</configuration>
 			</plugin>
@@ -137,10 +133,10 @@
 					<minimumPriority>4</minimumPriority>
 					<minimumTokens>100</minimumTokens>
 					<rulesets>
-						<ruleset>${basedir}/.pmd</ruleset>
+						<ruleset>${project.basedir}/.pmd</ruleset>
 					</rulesets>
 				</configuration>
 			</plugin>
 		</plugins>
-	</reporting>
+	</build>
 </project>
