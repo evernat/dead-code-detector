@@ -115,7 +115,7 @@
 				<configuration>
 					<enableRSS>false</enableRSS>
 					<configLocation>${basedir}/.checkstyle.xml</configLocation>
-					<linkXRef>true</linkXRef>
+					<linkXRef>false</linkXRef>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -133,7 +133,7 @@
 					<enableRulesSummary>false</enableRulesSummary>
 					<source>1.6</source>
 					<targetJdk>1.6</targetJdk>
-					<linkXref>true</linkXref>
+					<linkXref>false</linkXref>
 					<minimumPriority>4</minimumPriority>
 					<minimumTokens>100</minimumTokens>
 					<rulesets>
