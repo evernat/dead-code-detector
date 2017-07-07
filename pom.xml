@@ -68,7 +68,7 @@
 			<!-- Configuration compilation -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.6.0</version>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
@@ -76,7 +76,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
+				<version>1.8</version>
 				<executions>
 					<execution>
 						<phase>site</phase>
@@ -98,7 +98,7 @@
 						<!-- nécessaire car maven définit java_home avec le jre pour ant ! -->
 						<groupId>sun.jdk</groupId>
 						<artifactId>tools</artifactId>
-						<version>1.6.0</version>
+						<version>1.7.0</version>
 						<scope>system</scope>
 						<systemPath>${java.home}/../lib/tools.jar</systemPath>
 					</dependency>
@@ -121,14 +121,14 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>3.0.3</version>
+				<version>3.0.4</version>
 				<configuration>
 					<xmlOutput>true</xmlOutput>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.6</version>
+				<version>3.8</version>
 				<configuration>
 					<enableRulesSummary>false</enableRulesSummary>
 					<source>1.6</source>
