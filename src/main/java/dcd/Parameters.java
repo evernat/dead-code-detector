@@ -294,7 +294,7 @@ public class Parameters {
 		return initDeadCode;
 	}
 
-	int getSizeMultiplier() {
+	int getSizeMultiplier() { // NOPMD
 		return (isInitDeadCode() ? 1 : 0) + (isLocalDeadCode() ? 1 : 0)
 				+ (isPrivateDeadCode() ? 2 : 0) + (isPublicDeadCode() ? 2 : 0);
 	}
