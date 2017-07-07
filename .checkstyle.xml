@@ -89,7 +89,6 @@
     <module name="InnerAssignment">
       <property name="severity" value="error"/>
     </module>
-    <module name="JUnitTestCase"/>
     <module name="MissingSwitchDefault"/>
     <module name="ModifiedControlVariable">
       <property name="severity" value="error"/>
@@ -107,9 +106,6 @@
       <property name="severity" value="error"/>
     </module>
     <module name="ParameterAssignment">
-      <property name="severity" value="error"/>
-    </module>
-    <module name="RedundantThrows">
       <property name="severity" value="error"/>
     </module>
     <module name="SimplifyBooleanExpression"/>
@@ -183,7 +179,4 @@
   <module name="SuppressionFilter"/>
   <module name="SuppressionCommentFilter"/>
   <module name="FileLength"/>
-  <module name="StrictDuplicateCode">
-    <property name="severity" value="ignore"/>
-  </module>
 </module>
