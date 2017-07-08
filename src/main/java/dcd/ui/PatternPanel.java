@@ -44,8 +44,8 @@ class PatternPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private final PatternTable patternTable;
-	private final JButton addPatternButton = new JButton("Add a filter...");
-	private final JButton removePatternButton = new JButton("Remove");
+	private final JButton addPatternButton = new JButton();
+	private final JButton removePatternButton = new JButton();
 	private final PatternController controller;
 
 	PatternPanel(String tableHeader, String addMessage) {
@@ -68,7 +68,7 @@ class PatternPanel extends JPanel {
 
 		setLayout(new BorderLayout());
 		setOpaque(false);
-		patternTable.setPreferredScrollableViewportSize(new Dimension(150, 70));
+		patternTable.setPreferredScrollableViewportSize(new Dimension(300, 100));
 		final JScrollPane scrollPane = new JScrollPane(patternTable);
 		final JPanel scrollPanePanel = new JPanel(new BorderLayout());
 		scrollPanePanel.setBorder(EMPTY_BORDER);
