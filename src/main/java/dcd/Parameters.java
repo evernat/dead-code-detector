@@ -47,6 +47,7 @@ public class Parameters {
 	private static final String LOCAL_DEAD_CODE_KEY = "localDeadCode";
 	private static final String INIT_DEAD_CODE_KEY = "initDeadCode";
 	private static final String XML_REPORT_FILE_KEY = "xmlReportFile";
+	private static final String INCLUDE_VIEW_FILES_KEY = "includeViewFiles";
 	private static final String SEPARATORS = "[;,]";
 	private final List<File> directories;
 	private final List<Pattern> excludedClasses;
@@ -56,6 +57,7 @@ public class Parameters {
 	private final boolean localDeadCode;
 	private final boolean initDeadCode;
 	private File xmlReportFile; // can be null
+	private final boolean includeViewFiles;
 
 	/**
 	 * Constructeur.
@@ -84,6 +86,8 @@ public class Parameters {
 		xmlReportFile = properties.getProperty(XML_REPORT_FILE_KEY) == null
 				|| properties.getProperty(XML_REPORT_FILE_KEY).trim().isEmpty() ? null
 						: new File(properties.getProperty(XML_REPORT_FILE_KEY));
+		includeViewFiles = Boolean.valueOf(properties.getProperty(INCLUDE_VIEW_FILES_KEY,
+				System.getProperty(INCLUDE_VIEW_FILES_KEY)));
 	}
 
 	/**
@@ -115,6 +119,7 @@ public class Parameters {
 				: Collections.<Pattern> emptyList();
 		this.excludedMethods = excludedMethods != null ? excludedMethods
 				: Collections.<Pattern> emptyList();
+		this.includeViewFiles = Boolean.valueOf(System.getProperty(INCLUDE_VIEW_FILES_KEY));
 	}
 
 	/**
@@ -131,6 +136,7 @@ public class Parameters {
 		properties.put(LOCAL_DEAD_CODE_KEY, System.getProperty(LOCAL_DEAD_CODE_KEY));
 		properties.put(INIT_DEAD_CODE_KEY, System.getProperty(INIT_DEAD_CODE_KEY));
 		properties.put(XML_REPORT_FILE_KEY, System.getProperty(XML_REPORT_FILE_KEY));
+		properties.put(INCLUDE_VIEW_FILES_KEY, System.getProperty(INCLUDE_VIEW_FILES_KEY));
 		return new Parameters(properties);
 	}
 
@@ -311,6 +317,13 @@ public class Parameters {
 	 */
 	public void setXmlReportFile(File xmlReporFile) {
 		this.xmlReportFile = xmlReporFile;
+	}
+
+	/**
+	 * @return includes jsp/xhtml files for public dead code analysis
+	 */
+	public boolean includesViewFiles() {
+		return includeViewFiles;
 	}
 
 	/**

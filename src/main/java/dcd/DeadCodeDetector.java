@@ -19,6 +19,8 @@ package dcd;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +28,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -147,6 +151,29 @@ public class DeadCodeDetector {
 		}
 	}
 
+	private void analyzeViewFiles(File dir, Map<String, Pattern> patternsByMethod)
+			throws IOException {
+		for (final File file : DcdHelper.listFiles(dir)) {
+			if (isInterrupted()) {
+				break;
+			}
+			if (file.isDirectory()) {
+				analyzeViewFiles(file, patternsByMethod);
+			} else if (DcdHelper.isViewFile(file.getName())) {
+				final byte[] bytes = Files.readAllBytes(file.toPath());
+				final String string = new String(bytes, StandardCharsets.UTF_8);
+				for (final Map.Entry<String, Pattern> entry : patternsByMethod.entrySet()) {
+					final Pattern pattern = entry.getValue();
+					if (pattern.matcher(string).matches()) {
+						final String method = entry.getKey();
+						result.methodCalled(method);
+						patternsByMethod.remove(method);
+					}
+				}
+			}
+		}
+	}
+
 	private void analyzeDirectory(String dir, String packageName)
 			throws IOException, XMLStreamException {
 		final Set<String> classNameList = listClassesAndAnalyzeSubDirectories(dir, packageName);
@@ -226,11 +253,11 @@ public class DeadCodeDetector {
 			if (isInterrupted()) {
 				break;
 			}
-			final String name = packageName != null ? packageName + '.' + file.getName()
-					: file.getName();
-			if (file.isDirectory() && file.getName().indexOf('.') == -1) {
+			final String fileName = file.getName();
+			final String name = packageName != null ? packageName + '.' + fileName : fileName;
+			if (file.isDirectory() && fileName.indexOf('.') == -1) {
 				analyzeDirectory(dir, name);
-			} else if (file.getName().endsWith(".class")) {
+			} else if (fileName.endsWith(".class")) {
 				classNameList.add(name.substring(0, name.length() - ".class".length()));
 			}
 		}
@@ -541,6 +568,18 @@ public class DeadCodeDetector {
 					if (new File(tmpDirectory, webInfClasses).exists()) {
 						// analyse des classes du répertoire WEB-INF/classes du war
 						launchAnalyze(tmpDirectory.getPath() + webInfClasses);
+					}
+					if (parameters.includesViewFiles() && currentStep == Step.PUBLIC_ANALYSIS) {
+						final Set<String> allMethods = result.getAllMethods();
+						final Map<String, Pattern> patternsByMethod = new ConcurrentHashMap<>();
+						for (final String method : allMethods) {
+							// regex to search with word boundaries, for less false negatives in view files
+							final String regex = ".*\\b" + DcdHelper.getMethodName(method)
+									+ "\\b.*";
+							final Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
+							patternsByMethod.put(method, pattern);
+						}
+						analyzeViewFiles(tmpDirectory, patternsByMethod);
 					}
 				} else {
 					// analyse des classes du jar

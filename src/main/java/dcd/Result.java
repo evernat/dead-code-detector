@@ -331,6 +331,20 @@ class Result {
 		return methods;
 	}
 
+	Set<String> getAllMethods() {
+		final Set<String> result = new HashSet<>();
+		for (final Set<String> methods : methodsByClassMap.values()) {
+			result.addAll(methods);
+		}
+		return result;
+	}
+
+	void methodCalled(String methodKey) {
+		for (final Set<String> methods : methodsByClassMap.values()) {
+			methods.remove(methodKey);
+		}
+	}
+
 	void methodCalled(String className, String name, String desc) {
 		methodCalled(className, name, desc, methodsByClassMap);
 	}

@@ -123,6 +123,10 @@ class Report {
 
 	void reportDeadCodeSuspects(boolean publicDeadCode, String asmClassName, Set<String> descs)
 			throws XMLStreamException {
+		if (descs.isEmpty()) {
+			// analyzeViewFiles peut avoir laisser des listes vides
+			return;
+		}
 		final String type = publicDeadCode ? "publicDeadCode" : "privateDeadCode";
 		final String className = Type.getObjectType(asmClassName).getClassName();
 		final String msg = (publicDeadCode ? "Public suspects in class "

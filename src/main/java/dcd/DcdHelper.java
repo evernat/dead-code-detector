@@ -153,7 +153,9 @@ final class DcdHelper {
 			final Enumeration<? extends ZipEntry> entries = zipFile.entries();
 			while (entries.hasMoreElements() && !Thread.currentThread().isInterrupted()) {
 				final ZipEntry zipEntry = entries.nextElement();
-				if (zipEntry.getName().endsWith(".class") && !zipEntry.isDirectory()) {
+				final boolean toBeCopied = zipEntry.getName().endsWith(".class")
+						|| isViewFile(zipEntry.getName());
+				if (toBeCopied && !zipEntry.isDirectory()) {
 					final File tmpFile = new File(tmpDirectory, zipEntry.getName());
 					if (!tmpFile.getParentFile().exists() && !tmpFile.getParentFile().mkdirs()) {
 						throw new IOException(tmpFile.getParentFile() + " can't be created");
@@ -173,6 +175,10 @@ final class DcdHelper {
 			zipFile.close();
 		}
 		return tmpDirectory;
+	}
+
+	static boolean isViewFile(String fileName) {
+		return fileName.endsWith(".xhtml") || fileName.endsWith(".jsp");
 	}
 
 	private static void copy(byte[] buffer, InputStream input, OutputStream output)
