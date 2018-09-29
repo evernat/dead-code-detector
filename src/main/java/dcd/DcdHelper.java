@@ -44,7 +44,7 @@ final class DcdHelper {
 	/**
 	 * Nom et copyright de DCD.
 	 */
-	static final String APPLICATION_NAME = "Dead Code Detector, Copyright 2008-2017 by Emeric Vernat";
+	static final String APPLICATION_NAME = "Dead Code Detector, Copyright 2008-2018 by Emeric Vernat";
 	private static final char METHOD_SEPARATOR = ' ';
 	private static final int VISIBILITY_PUBLIC_OR_PROTECTED = Modifier.PUBLIC | Modifier.PROTECTED;
 

@@ -24,13 +24,9 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.lang.reflect.Method;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -49,10 +45,7 @@ import dcd.Parameters;
 public class DeadCodeDetectorUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static final Color GRADIENT_COLOR = new Color(166, 202, 240);
-	private static final int APPEAR_STEP = 25;
-	private static final int APPEAR_DURATION = 750;
 	final ParametersPanel parametersPanel;
-	javax.swing.Timer appearTimer;
 
 	/**
 	 * Constructeur du panel.
@@ -122,52 +115,10 @@ public class DeadCodeDetectorUI extends JPanel {
 			final Dimension dimension = frame.getToolkit().getScreenSize();
 			frame.setLocation(dimension.width / 2 - frame.getWidth() / 2,
 					dimension.height / 2 - frame.getHeight() / 2);
-			ui.disappear();
 			frame.setVisible(true);
-			ui.appear();
 		} catch (final Exception e) {
 			DcdUiHelper.printStackTrace(e);
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-		}
-	}
-
-	private void appear() {
-		final JFrame frame = (JFrame) SwingUtilities.windowForComponent(this);
-		final long startTime = System.currentTimeMillis();
-		appearTimer = new javax.swing.Timer(APPEAR_STEP, new ActionListener() {
-			/** {@inheritDoc} */
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// calculate elapsed time
-				final long elapsed = System.currentTimeMillis() - startTime;
-				final float alpha = Math.min(1f, 1.0f * elapsed / APPEAR_DURATION);
-				setWindowOpacity(frame, alpha);
-				if (elapsed >= APPEAR_DURATION) { // should we stop timer?
-					appearTimer.stop();
-				}
-			}
-		});
-
-		appearTimer.start();
-	}
-
-	private void disappear() {
-		final JFrame frame = (JFrame) SwingUtilities.windowForComponent(this);
-		setWindowOpacity(frame, 0f);
-	}
-
-	static void setWindowOpacity(JFrame frame, float alpha) {
-		// cette méthode fonctionne à partir de Java 1.6.0_10 (update 10)
-		try {
-			//invoke AWTUtilities.setWindowOpacity(win, alpha);
-			final Class<?> awtutil = Class.forName("com.sun.awt.AWTUtilities");
-			final Method setWindowOpaque = awtutil.getMethod("setWindowOpacity", Window.class,
-					float.class);
-			setWindowOpaque.invoke(null, frame, alpha);
-		} catch (final Throwable ex) { // NOPMD
-			// pour MAC OS X
-			frame.getRootPane().putClientProperty("Window.alpha", Float.valueOf(alpha));
-			// sinon pas v1.6.0_u10 ou + : tant pis
 		}
 	}
 
