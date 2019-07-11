@@ -7,8 +7,6 @@ Author: Emeric Vernat
 
 License: [ASL](http://www.apache.org/licenses/LICENSE-2.0)
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.bull.javamelody/dead-code-detector/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.bull.javamelody/dead-code-detector)
-
 Documentation
 ==========================================
 
